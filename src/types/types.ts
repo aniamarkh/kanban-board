@@ -21,3 +21,7 @@ export interface Board {
   desc: string;
   columns: Column[];
 }
+
+export interface ButtonProps {
+  type: 'primary' | 'secondary'
+};
