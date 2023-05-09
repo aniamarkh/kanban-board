@@ -10,7 +10,7 @@ export const useBoardStore = defineStore('board', {
         columns: [
           {
             id: 1,
-            name: 'To Do',
+            title: 'To Do',
             cards: [
               {
                 id: 0,
@@ -22,7 +22,7 @@ export const useBoardStore = defineStore('board', {
           },
           {
             id: 2,
-            name: 'In Progress',
+            title: 'In Progress',
             cards: [
               {
                 id: 1,
@@ -34,7 +34,7 @@ export const useBoardStore = defineStore('board', {
           },
           {
             id: 3,
-            name: 'Done',
+            title: 'Done',
             cards: [
               {
                 id: 2,

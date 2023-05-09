@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import BoardHeader from './components/BoardHeader.vue';
+import KanbanBoard from './components/KanbanBoard.vue';
 </script>
 
 <template>
-  <BoardHeader />
-  <main>
-  </main>
+  <div>
+    <BoardHeader />
+    <main>
+      <KanbanBoard />
+    </main>
+  </div>
 </template>
-
-<style scoped lang="scss">
-</style>

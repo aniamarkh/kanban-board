@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-interface ButtonProps {
-  type: 'primary' | 'secondary'
-};
-const props = defineProps<ButtonProps>();
+const props = defineProps({
+  btnClass: {
+    type: String,
+    required: true,
+  },
+});
 
 const buttonClass = computed(() => {
-  return 'button--' + props.type;
+  return 'button--' + props.btnClass;
 });
 </script>
 
@@ -22,12 +24,14 @@ const buttonClass = computed(() => {
 <style scoped lang="scss">
 @import '../assets/_config.scss';
 .button {
-  background-color: $primary;
+  background-color: $text-color;
   color: $bg-color;
   padding: 5px 10px;
-  border-radius: 10px;
+  border-radius: 20px;
   font-weight: bold;
   height: 35px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  white-space: nowrap;
   @include transition-ease;
 
   &:hover {
@@ -42,8 +46,7 @@ const buttonClass = computed(() => {
 .button--secondary {
   @extend .button;
   background-color: $grey;
-  color: $primary;
+  color: $text-color;
   font-weight: normal;
-
 }
 </style>
