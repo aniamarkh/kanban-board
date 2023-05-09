@@ -27,10 +27,10 @@ const buttonClass = computed(() => {
   background-color: $text-color;
   color: $bg-color;
   padding: 5px 10px;
-  border-radius: 20px;
+  border-radius: 10px;
   font-weight: bold;
   height: 35px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  @include shadow;
   white-space: nowrap;
   @include transition-ease;
 

@@ -1,7 +1,7 @@
-$accent: #5A5A65;
 $bg-color: #ffffff;
 $text-color: #161616;
 $grey: #F8F8F8;
+$dark-grey: #5A5A65;
 
 @mixin flex-row {
   display: flex;
@@ -17,12 +17,16 @@ $grey: #F8F8F8;
   transition: all 0.3s ease-in-out;
 }
 
+@mixin shadow {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto Mono', monospace;
 }
 
 a {

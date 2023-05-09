@@ -31,10 +31,6 @@ const store = useBoardStore();
   padding: 15px 0;
 }
 
-.board__desc {
-  color: $accent;
-}
-
 .header__buttons {
   @include flex-row;
   gap: 10px;

@@ -16,7 +16,14 @@ export const useBoardStore = defineStore('board', {
                 id: 0,
                 title: 'First Card',
                 desc: 'Cards desc',
-                subtasks: [],
+                subtasks: [{
+                  title: 'Do this',
+                  done: false,
+                },
+                {
+                  title: 'Do that',
+                  done: true,
+                }],
               },
             ],
           },
