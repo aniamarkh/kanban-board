@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import type { Card } from '../types/types';
-defineProps<{ card: Card }>();
+import { useModalsStore } from '../stores/modalsStore';
+const props = defineProps<{ card: Card }>();
+const modalsStore = useModalsStore();
+
+const openTask = () => {
+  modalsStore.openModal('TaskView', props.card);
+};
 </script>
 
 <template>
-  <div class="card__wrapper">
+  <div class="card__wrapper" @click="openTask">
     <h4 class="card__title">{{ card.title }}</h4>
     <p class="card__desc">{{ card.desc }}</p>
     <div class="card__subtask" v-if="card.subtasks.length">subtasks</div>

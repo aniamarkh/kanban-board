@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { useBoardStore } from '../stores/boardStore';
+import { useModalsStore } from '../stores/modalsStore';
+
 import ButtonComponent from './ButtonComponent.vue';
-const store = useBoardStore();
+const boardStore = useBoardStore();
+const modalsStore = useModalsStore();
+
+const openTaskForm = () => {
+  modalsStore.openModal('TaskForm', boardStore.getBoard);
+};
 </script>
 
 <template>
@@ -10,10 +17,12 @@ const store = useBoardStore();
       <ButtonComponent btnClass="secondary" class="buttons__show-boards">
         <span class="material-icons-outlined"> expand_more </span>
       </ButtonComponent>
-      <h1 class="board__title">{{ store.getBoard.title }}</h1>
+      <h1 class="board__title">{{ boardStore.getBoard.title }}</h1>
     </div>
     <div class="header__buttons">
-      <ButtonComponent btnClass="primary" class="buttons__add-task">+ add task</ButtonComponent>
+      <ButtonComponent btnClass="primary" @click="openTaskForm" class="buttons__add-task">
+        + add task
+      </ButtonComponent>
       <ButtonComponent btnClass="secondary" class="buttons__edit-board">
         <span class="material-icons-outlined"> more_vert </span>
       </ButtonComponent>
@@ -24,13 +33,12 @@ const store = useBoardStore();
 <style scoped lang="scss">
 @import '../assets/_config.scss';
 .header {
-  max-width: 1020px;
   margin: 0 auto;
   background-color: $bg-color;
   @include flex-row;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 15px 0;
+  padding: 15px 30px;
 
   &__board {
     @include flex-row;
