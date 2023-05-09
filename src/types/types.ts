@@ -18,6 +18,5 @@ export interface Column {
 
 export interface Board {
   title: string
-  desc: string
   columns: Column[]
 }

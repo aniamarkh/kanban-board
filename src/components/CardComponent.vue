@@ -24,5 +24,10 @@ defineProps<{ card: Card }>();
   @include shadow;
   border-radius: 8px;
   cursor: pointer;
+  @include transition-ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 </style>

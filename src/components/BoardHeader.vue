@@ -7,8 +7,10 @@ const store = useBoardStore();
 <template>
   <header class="header">
     <div class="header__board">
+      <ButtonComponent btnClass="secondary" class="buttons__show-boards">
+        <span class="material-icons-outlined"> expand_more </span>
+      </ButtonComponent>
       <h1 class="board__title">{{ store.getBoard.title }}</h1>
-      <p class="board__desc">{{ store.getBoard.desc }}</p>
     </div>
     <div class="header__buttons">
       <ButtonComponent btnClass="primary" class="buttons__add-task">+ add task</ButtonComponent>
@@ -29,10 +31,16 @@ const store = useBoardStore();
   justify-content: space-between;
   align-items: flex-start;
   padding: 15px 0;
-}
 
-.header__buttons {
-  @include flex-row;
-  gap: 10px;
+  &__board {
+    @include flex-row;
+    gap: 10px;
+    align-items: center;
+  }
+
+  &__buttons {
+    @include flex-row;
+    gap: 10px;
+  }
 }
 </style>

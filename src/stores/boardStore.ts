@@ -6,7 +6,6 @@ export const useBoardStore = defineStore('board', {
     return {
       board: {
         title: 'Example Kanban Board',
-        desc: 'It is a sample kanban board',
         columns: [
           {
             id: 1,
