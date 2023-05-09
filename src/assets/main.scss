@@ -1,14 +1,21 @@
 @import './_config.scss';
 
-body {
-  background-color: $bg-color;
-  color: $text-color;
+html {
+  background-color: $grey;
 }
 
-#app {
+body {
   max-width: 1020px;
   margin: 0 auto;
-  background-color: red;
+  padding: 0 30px;
+  background-color: $bg-color;
+  color: $text-color;
+  min-height: 100vh;
+}
+
+main {
+  @include flex-column;
+  align-items: center;
 }
 
 .material-icons-outlined {

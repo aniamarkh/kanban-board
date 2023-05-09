@@ -1,4 +1,4 @@
-$primary: #949494;
+$accent: #5A5A65;
 $bg-color: #ffffff;
 $text-color: #161616;
 $grey: #F8F8F8;
@@ -6,6 +6,11 @@ $grey: #F8F8F8;
 @mixin flex-row {
   display: flex;
   flex-direction: row;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
 }
 
 @mixin transition-ease {

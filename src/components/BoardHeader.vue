@@ -7,15 +7,13 @@ const store = useBoardStore();
 <template>
   <header class="header">
     <div class="header__board">
-      <h1 class="board__title">{{store.getBoard.title}}</h1>
-      <p class="board__desc">{{store.getBoard.desc}}</p>
+      <h1 class="board__title">{{ store.getBoard.title }}</h1>
+      <p class="board__desc">{{ store.getBoard.desc }}</p>
     </div>
     <div class="header__buttons">
-      <ButtonComponent type="primary" class="buttons__add-task">+ add task</ButtonComponent>
-      <ButtonComponent type="secondary" class="buttons__edit-board">
-        <span class="material-icons-outlined">
-        more_vert
-        </span>
+      <ButtonComponent btnClass="primary" class="buttons__add-task">+ add task</ButtonComponent>
+      <ButtonComponent btnClass="secondary" class="buttons__edit-board">
+        <span class="material-icons-outlined"> more_vert </span>
       </ButtonComponent>
     </div>
   </header>
@@ -29,8 +27,12 @@ const store = useBoardStore();
   background-color: $bg-color;
   @include flex-row;
   justify-content: space-between;
-  align-items: center;
-  padding: 15px;
+  align-items: flex-start;
+  padding: 15px 0;
+}
+
+.board__desc {
+  color: $accent;
 }
 
 .header__buttons {
