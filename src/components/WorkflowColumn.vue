@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import type { Column } from '../types/types';
-import CardComponent from './CardComponent.vue';
+import TaskCard from './TaskCard.vue';
 
 defineProps<{ column: Column }>();
 </script>
 
 <template>
   <div class="board__column">
-    <h4 class="column__title">{{ `${column.title} (${column.cards.length})` }}</h4>
-    <CardComponent v-for="(card, index) in column.cards" :key="index" :card="card" />
+    <h4 class="column__title">{{ `${column.title} (${column.tasks.length})` }}</h4>
+    <TaskCard v-for="(task, index) in column.tasks" :key="index" :task="task" />
   </div>
 </template>
 

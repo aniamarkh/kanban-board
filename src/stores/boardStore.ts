@@ -1,52 +1,83 @@
-import { defineStore } from 'pinia'
-import type { Board, Column } from '../types/types';
+import { defineStore, storeToRefs } from 'pinia'
+import type { Board, Column, Subtask, Task } from '../types/types';
 
 export const useBoardStore = defineStore('board', {
-  state() {
+  state(): { board: Board } {
     return {
       board: {
-        title: 'Example Kanban Board',
+        title: 'Sample Kanban Board',
         columns: [
           {
             id: 1,
             title: 'To Do',
-            cards: [
+            tasks: [
               {
-                id: 0,
-                title: 'First Card',
-                desc: 'Cards desc',
-                subtasks: [{
-                  title: 'Do this',
-                  done: false,
-                },
-                {
-                  title: 'Do that',
-                  done: true,
-                }],
+                id: 4,
+                title: 'Implement Authentication',
+                desc: 'Add user authentication for sign-up, login, and password reset functionality.',
+                subtasks: [
+                  {
+                    id: 7,
+                    title: 'Integrate OAuth',
+                    done: false,
+                  },
+                  {
+                    id: 8,
+                    title: 'Create sign-up form',
+                    done: false,
+                  },
+                  {
+                    id: 9,
+                    title: 'Create login form',
+                    done: false,
+                  },
+                ],
               },
             ],
           },
           {
             id: 2,
             title: 'In Progress',
-            cards: [
+            tasks: [
               {
-                id: 1,
-                title: 'Second Card',
-                desc: 'Cards desc',
-                subtasks: [],
+                id: 5,
+                title: 'Design App Layout',
+                desc: 'Create the user interface and overall design of the pet project app.',
+                subtasks: [
+                  {
+                    id: 10,
+                    title: 'Choose color scheme',
+                    done: true,
+                  },
+                  {
+                    id: 11,
+                    title: 'Design app logo',
+                    done: false,
+                  },
+                ],
               },
             ],
           },
           {
             id: 3,
             title: 'Done',
-            cards: [
+            tasks: [
               {
-                id: 2,
-                title: 'Third Card',
-                desc: 'Cards desc',
-                subtasks: [],
+                id: 6,
+                title: 'Set up Project Repository',
+                desc: 'Initialize the repository, set up branches, and commit the initial project structure.',
+                subtasks: [
+                  {
+                    id: 12,
+                    title: 'Create GitHub repo',
+                    done: true,
+                  },
+                  {
+                    id: 13,
+                    title: 'Commit initial project structure',
+                    done: true,
+                  },
+                ],
               },
             ],
           },
@@ -59,8 +90,27 @@ export const useBoardStore = defineStore('board', {
     getBoard(): Board {
       return this.board;
     },
-    getColumnById: (state) => (id: number): Column | undefined => {
-      return state.board.columns.find((column) => column.id === id);
+
+    getColumnById: (state) => {
+      return (id: number): Column | undefined => state.board.columns.find((column) => column.id === id);
+    },
+
+    getTask(state) {
+      return (id: number): Task | undefined => {
+        for (const column of state.board.columns) {
+          const task = column.tasks.find((task) => task.id === id);
+          if (!task) continue;
+          return task;
+        }
+      }
+    },
+
+    getSubtask() {
+      return (taskId: number, subtaskId: number): Subtask | undefined => {
+        const task = this.getTask(taskId);
+        if (!task) return;
+        return task.subtasks.find((subtask) => subtask.id === subtaskId);
+      };
     },
   },
 });

@@ -1,9 +1,10 @@
 export interface Subtask {
+  id: number
   title: string
   done: boolean
 }
 
-export interface Card {
+export interface Task {
   id: number
   title: string
   desc: string
@@ -13,7 +14,7 @@ export interface Card {
 export interface Column {
   id: number
   title: string
-  cards: Card[]
+  tasks: Task[]
 }
 
 export interface Board {
