@@ -49,4 +49,15 @@ const buttonClass = computed(() => {
   color: $text-color;
   font-weight: normal;
 }
+
+.button--no-font {
+  background-color: inherit;
+  color: $dark-grey;
+  font-weight: normal;
+  @include transition-ease;
+
+  &:hover {
+    color: $text-color;
+  }
+}
 </style>

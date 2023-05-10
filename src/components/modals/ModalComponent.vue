@@ -5,9 +5,12 @@ const modalsStore = useModalsStore();
 
 <template>
   <div v-if="modalsStore.activeModal" class="modal__window" @click="modalsStore.closeModal">
-    <div @click.stop class="modal__wrapper">
-      <component :is="modalsStore.activeModal" :data="modalsStore.modalData" />
-    </div>
+    <component
+      @click.stop
+      @close="modalsStore.closeModal"
+      :is="modalsStore.activeModal"
+      :data="modalsStore.modalData"
+    />
   </div>
 </template>
 
@@ -29,9 +32,10 @@ const modalsStore = useModalsStore();
 }
 
 .modal__wrapper {
+  @include flex-column;
   z-index: 4;
-  width: auto;
   height: auto;
+  max-width: 520px;
   padding: 20px;
   background-color: $bg-color;
   border-radius: 15px;

@@ -1,11 +1,80 @@
 <script setup lang="ts">
-import type { Card } from '@/types/types';
-defineProps<{ data: Card }>();
+import { computed } from 'vue';
+import type { Task } from '@/types/types';
+import ButtonComponent from '../ButtonComponent.vue';
+import SubtaskCheckbox from './SubtaskCheckbox.vue';
+
+const props = defineProps<{ data: Task }>();
+const subtasksInfo = computed(() => {
+  const done = props.data.subtasks.filter((subtask) => subtask.done === true).length;
+  return `(${done} of ${props.data.subtasks.length})`;
+});
 </script>
 
 <template>
-  <div>
-    <h1>Task View Modal</h1>
-    {{ data.title }}
+  <div class="task-view__wrapper">
+    <div class="task-view__buttons">
+      <ButtonComponent btnClass="no-font" class="buttons__edit-task">
+        <span class="material-icons-outlined"> more_horiz </span>
+      </ButtonComponent>
+      <ButtonComponent @click="$emit('close')" btnClass="no-font" class="buttons__close-task">
+        <span class="material-icons-outlined"> close </span>
+      </ButtonComponent>
+    </div>
+    <h3 class="task-view__title">{{ data.title }}</h3>
+    <p class="task-view__desc">{{ data.desc }}</p>
+    <div class="task-view__subtasks">
+      <h4>Subtasks {{ subtasksInfo }}</h4>
+      <SubtaskCheckbox
+        v-for="(subtask, index) in data.subtasks"
+        :key="index"
+        :subtask="subtask"
+        :taskId="data.id"
+      />
+    </div>
+    <div class="task-view__status"></div>
   </div>
 </template>
+
+<style scoped lang="scss">
+@import '../../assets/_config.scss';
+
+.task-view__wrapper {
+  position: relative;
+  @include flex-column;
+  z-index: 4;
+  height: auto;
+  max-width: 500px;
+  padding: 30px;
+  background-color: $bg-color;
+  border-radius: 15px;
+  margin: 10px;
+}
+
+.task-view__title {
+  margin-bottom: 10px;
+  width: 80%;
+}
+
+.task-view__desc {
+  color: $dark-grey;
+}
+
+.task-view__buttons {
+  @include flex-row;
+  gap: 5px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.task-view__subtasks {
+  @include flex-column;
+  gap: 10px;
+  margin-top: 20px;
+
+  h4 {
+    margin-bottom: 10px;
+  }
+}
+</style>
