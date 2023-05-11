@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { useModalsStore } from '@/stores/modalsStore.ts';
+
 defineProps<{ target: String }>();
 
 const isDropdownOpen = ref(false);
@@ -10,6 +12,11 @@ const dropdownClass = computed(() => {
 const closeDropdown = () => {
   isDropdownOpen.value = false;
 };
+
+const modalsStore = useModalsStore();
+const openDeleteModal = () => {
+  modalsStore.openModal('DeleteNode', modalsStore.modalData);
+};
 </script>
 
 <template>
@@ -19,7 +26,7 @@ const closeDropdown = () => {
     </span>
     <div v-if="isDropdownOpen" :class="dropdownClass">
       <p class="dropdown__option">Edit {{ target }}</p>
-      <p class="dropdown__option--delete">Delete {{ target }}</p>
+      <p class="dropdown__option--delete" @click="openDeleteModal">Delete {{ target }}</p>
     </div>
   </div>
 </template>

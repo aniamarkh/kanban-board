@@ -23,6 +23,10 @@ const buttonClass = computed(() => {
 
 <style scoped lang="scss">
 @import '../assets/_config.scss';
+.button__wrapper {
+  width: 100%;
+}
+
 .button {
   background-color: $text-color;
   color: $bg-color;
@@ -30,6 +34,7 @@ const buttonClass = computed(() => {
   border-radius: 10px;
   font-weight: bold;
   height: 35px;
+  width: 100%;
   @include shadow;
   white-space: nowrap;
   @include transition-ease;
@@ -51,6 +56,17 @@ const buttonClass = computed(() => {
 
   &:hover {
     color: $text-color;
+  }
+}
+
+.button--warn {
+  @extend .button;
+  background-color: $red-pale;
+  color: $bg-color;
+  font-weight: normal;
+
+  &:hover {
+    background-color: $red;
   }
 }
 

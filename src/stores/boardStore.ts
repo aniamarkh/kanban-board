@@ -101,6 +101,16 @@ export const useBoardStore = defineStore('board', {
         targetColumn.tasks.push(task);
       }
     },
+
+    deleteTask(taskId: number) {
+      for (const column of this.board.columns) {
+        const taskIndex = column.tasks.findIndex(task => task.id === taskId);
+        if (taskIndex !== -1) {
+          column.tasks.splice(taskIndex, 1)[0];
+          break;
+        }
+      }
+    },
   },
 
   getters: {

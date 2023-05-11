@@ -49,6 +49,10 @@ const openTaskForm = () => {
     flex-wrap: wrap;
     align-items: center;
     gap: 10px;
+
+    .button__wrapper {
+      width: 120px;
+    }
   }
 }
 </style>
