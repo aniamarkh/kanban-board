@@ -17,6 +17,8 @@ defineProps<{ column: Column }>();
 .board__column {
   @include flex-column;
   align-items: flex-start;
+  gap: 10px;
+  width: 290px;
 }
 
 .column__title {

@@ -1,4 +1,4 @@
-import { defineStore, storeToRefs } from 'pinia'
+import { defineStore } from 'pinia'
 import type { Board, Column, Subtask, Task } from '../types/types';
 
 export const useBoardStore = defineStore('board', {
@@ -86,16 +86,42 @@ export const useBoardStore = defineStore('board', {
     };
   },
 
+  actions: {
+    moveTask({ taskId, targetColumnId }: { taskId: number, targetColumnId: number }) {
+      let task;
+      for (const column of this.board.columns) {
+        const taskIndex = column.tasks.findIndex(task => task.id === taskId);
+        if (taskIndex !== -1) {
+          task = column.tasks.splice(taskIndex, 1)[0];
+          break;
+        }
+      }
+      const targetColumn = this.getColumnById(targetColumnId);
+      if (task && targetColumn) {
+        targetColumn.tasks.push(task);
+      }
+    },
+  },
+
   getters: {
     getBoard(): Board {
       return this.board;
     },
 
-    getColumnById: (state) => {
+    getColumnById: (state: { board: Board }) => {
       return (id: number): Column | undefined => state.board.columns.find((column) => column.id === id);
     },
 
-    getTask(state) {
+    getColumnForTask(state: { board: Board }) {
+      return (taskId: number): Column | undefined => {
+        for (const column of state.board.columns) {
+          const taskExists = column.tasks.some(task => task.id === taskId);
+          if (taskExists) return column;
+        }
+      }
+    },
+
+    getTask(state: { board: Board }) {
       return (id: number): Task | undefined => {
         for (const column of state.board.columns) {
           const task = column.tasks.find((task) => task.id === id);
