@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useBoardStore } from '../stores/boardStore';
-import { useModalsStore } from '../stores/modalsStore';
-import ButtonComponent from './ButtonComponent.vue';
+import { useBoardStore } from '@/stores/boardStore';
+import { useModalsStore } from '@/stores/modalsStore';
+import ButtonComponent from '@/components/ButtonComponent.vue';
 
 const boardStore = useBoardStore();
 const modalsStore = useModalsStore();
@@ -28,7 +28,7 @@ const openTaskForm = () => {
 </template>
 
 <style scoped lang="scss">
-@import '../assets/_config.scss';
+@import '@/assets/_config.scss';
 .header {
   margin: 0 auto;
   background-color: $bg-color;

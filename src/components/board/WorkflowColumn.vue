@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Column } from '../types/types';
+import type { Column } from '@/types/types';
 import TaskCard from './TaskCard.vue';
 
 defineProps<{ column: Column }>();
@@ -13,7 +13,7 @@ defineProps<{ column: Column }>();
 </template>
 
 <style scoped lang="scss">
-@import '../assets/_config.scss';
+@import '@/assets/_config.scss';
 .board__column {
   @include flex-column;
   align-items: flex-start;
@@ -22,7 +22,7 @@ defineProps<{ column: Column }>();
 }
 
 .column__title {
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   text-transform: uppercase;
 }
 </style>

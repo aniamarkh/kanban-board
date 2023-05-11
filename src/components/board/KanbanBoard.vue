@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useBoardStore } from '../stores/boardStore';
+import { useBoardStore } from '@/stores/boardStore';
 import WorkflowColumn from './WorkflowColumn.vue';
 
 const boardStore = useBoardStore();
@@ -16,7 +16,7 @@ const boardStore = useBoardStore();
 </template>
 
 <style scoped lang="scss">
-@import '../assets/_config.scss';
+@import '@/assets/_config.scss';
 
 .board__wrapper {
   max-width: 100%;
