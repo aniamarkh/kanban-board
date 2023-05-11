@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useBoardStore } from '../stores/boardStore';
 import { useModalsStore } from '../stores/modalsStore';
-
 import ButtonComponent from './ButtonComponent.vue';
+
 const boardStore = useBoardStore();
 const modalsStore = useModalsStore();
 
@@ -24,7 +24,7 @@ const openTaskForm = () => {
         + add task
       </ButtonComponent>
       <ButtonComponent btnClass="secondary" class="buttons__edit-board">
-        <span class="material-icons-outlined"> more_vert </span>
+        <span class="material-icons-outlined"> more_horiz </span>
       </ButtonComponent>
     </div>
   </header>

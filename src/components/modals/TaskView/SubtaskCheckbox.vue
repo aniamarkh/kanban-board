@@ -14,7 +14,6 @@ const props = defineProps({
 
 const boardStore = useBoardStore();
 const toggleSubtask = () => {
-  console.log('toggle');
   const subtaskNode = boardStore.getSubtask(props.taskId, props.subtask.id);
   subtaskNode.done = !subtaskNode.done;
 };
@@ -39,7 +38,7 @@ const labelClass = computed(() => {
 </template>
 
 <style scoped lang="scss">
-@import '../../assets/_config.scss';
+@import '@/assets/_config.scss';
 
 .subtask__label {
   @include flex-row;
@@ -92,7 +91,7 @@ const labelClass = computed(() => {
     left: 0;
     right: 0;
     top: 200%;
-    bottom: 5%;
+    bottom: 0;
     margin: auto;
   }
 }

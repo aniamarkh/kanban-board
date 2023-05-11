@@ -2,13 +2,13 @@
 import { useBoardStore } from '../stores/boardStore';
 import WorkflowColumn from './WorkflowColumn.vue';
 
-const store = useBoardStore();
+const boardStore = useBoardStore();
 </script>
 
 <template>
   <div class="board__wrapper">
     <WorkflowColumn
-      v-for="(column, index) in store.getBoard.columns"
+      v-for="(column, index) in boardStore.getBoard.columns"
       :key="index"
       :column="column"
     />

@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { Task } from '@/types/types';
-import ButtonComponent from '../ButtonComponent.vue';
+import ButtonComponent from '../../ButtonComponent.vue';
 import SubtaskCheckbox from './SubtaskCheckbox.vue';
+import StatusSelect from '../StatusSelect.vue';
 
 const props = defineProps<{ data: Task }>();
+
 const subtasksInfo = computed(() => {
   const done = props.data.subtasks.filter((subtask) => subtask.done === true).length;
   return `(${done} of ${props.data.subtasks.length})`;
@@ -23,7 +25,7 @@ const subtasksInfo = computed(() => {
     </div>
     <h3 class="task-view__title">{{ data.title }}</h3>
     <p class="task-view__desc">{{ data.desc }}</p>
-    <div class="task-view__subtasks">
+    <div v-if="data.subtasks" class="task-view__subtasks">
       <h4>Subtasks {{ subtasksInfo }}</h4>
       <SubtaskCheckbox
         v-for="(subtask, index) in data.subtasks"
@@ -32,12 +34,15 @@ const subtasksInfo = computed(() => {
         :taskId="data.id"
       />
     </div>
-    <div class="task-view__status"></div>
+    <div class="task-view__status">
+      <h4>Current Status</h4>
+      <StatusSelect :task="data" />
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-@import '../../assets/_config.scss';
+@import '@/assets/_config.scss';
 
 .task-view__wrapper {
   position: relative;
@@ -69,6 +74,16 @@ const subtasksInfo = computed(() => {
 }
 
 .task-view__subtasks {
+  @include flex-column;
+  gap: 10px;
+  margin-top: 20px;
+
+  h4 {
+    margin-bottom: 10px;
+  }
+}
+
+.task-view__status {
   @include flex-column;
   gap: 10px;
   margin-top: 20px;

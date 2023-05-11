@@ -4,11 +4,15 @@ const modalsStore = useModalsStore();
 </script>
 
 <template>
-  <div v-if="modalsStore.activeModal" class="modal__window" @click="modalsStore.closeModal">
+  <div
+    v-if="modalsStore.activeModalComponent"
+    class="modal__window"
+    @click="modalsStore.closeModal"
+  >
     <component
       @click.stop
       @close="modalsStore.closeModal"
-      :is="modalsStore.activeModal"
+      :is="modalsStore.activeModalComponent"
       :data="modalsStore.modalData"
     />
   </div>
