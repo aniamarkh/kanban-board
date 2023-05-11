@@ -4,6 +4,7 @@ import type { Task } from '@/types/types';
 import ButtonComponent from '../../ButtonComponent.vue';
 import SubtaskCheckbox from './SubtaskCheckbox.vue';
 import StatusSelect from '../StatusSelect.vue';
+import DropdownMenu from '../DropdownMenu.vue';
 
 const props = defineProps<{ data: Task }>();
 
@@ -16,9 +17,7 @@ const subtasksInfo = computed(() => {
 <template>
   <div class="task-view__wrapper">
     <div class="task-view__buttons">
-      <ButtonComponent btnClass="no-font" class="buttons__edit-task">
-        <span class="material-icons-outlined"> more_horiz </span>
-      </ButtonComponent>
+      <DropdownMenu target="Task" />
       <ButtonComponent @click="$emit('close')" btnClass="no-font" class="buttons__close-task">
         <span class="material-icons-outlined"> close </span>
       </ButtonComponent>

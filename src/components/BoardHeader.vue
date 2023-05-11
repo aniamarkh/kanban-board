@@ -14,9 +14,6 @@ const openTaskForm = () => {
 <template>
   <header class="header">
     <div class="header__board">
-      <ButtonComponent btnClass="secondary" class="buttons__show-boards">
-        <span class="material-icons-outlined"> expand_more </span>
-      </ButtonComponent>
       <h1 class="board__title">{{ boardStore.getBoard.title }}</h1>
     </div>
     <div class="header__buttons">
@@ -24,7 +21,7 @@ const openTaskForm = () => {
         + add task
       </ButtonComponent>
       <ButtonComponent btnClass="secondary" class="buttons__edit-board">
-        <span class="material-icons-outlined"> more_horiz </span>
+        edit board
       </ButtonComponent>
     </div>
   </header>
@@ -48,6 +45,9 @@ const openTaskForm = () => {
 
   &__buttons {
     @include flex-row;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-items: center;
     gap: 10px;
   }
 }

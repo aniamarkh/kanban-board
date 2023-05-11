@@ -46,8 +46,12 @@ const buttonClass = computed(() => {
 .button--secondary {
   @extend .button;
   background-color: $grey;
-  color: $text-color;
+  color: $dark-grey;
   font-weight: normal;
+
+  &:hover {
+    color: $text-color;
+  }
 }
 
 .button--no-font {
