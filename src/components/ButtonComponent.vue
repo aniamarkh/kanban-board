@@ -61,13 +61,9 @@ const buttonClass = computed(() => {
 
 .button--warn {
   @extend .button;
-  background-color: $red-pale;
+  background-color: $red;
   color: $bg-color;
-  font-weight: normal;
-
-  &:hover {
-    background-color: $red;
-  }
+  font-weight: bold;
 }
 
 .button--no-font {

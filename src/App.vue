@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import BoardHeader from './components/board/BoardHeader.vue';
 import KanbanBoard from './components/board/KanbanBoard.vue';
-import ModalComponent from '@/components/modals/ModalComponent.vue';
+import ModalOverlay from '@/components/modals/ModalOverlay.vue';
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import ModalComponent from '@/components/modals/ModalComponent.vue';
     <BoardHeader />
     <main>
       <KanbanBoard />
-      <ModalComponent />
+      <ModalOverlay />
     </main>
   </div>
 </template>

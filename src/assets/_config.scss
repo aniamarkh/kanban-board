@@ -2,7 +2,7 @@ $bg-color: #ffffff;
 $text-color: #161616;
 $grey: #F8F8F8;
 $dark-grey: #81818b;
-$red: #d40000;
+$red: #ff0000;
 $red-pale: #ff6767;
 
 
@@ -30,6 +30,10 @@ $red-pale: #ff6767;
   padding: 0;
   scroll-behavior: smooth;
   font-family: 'Roboto Mono', monospace;
+}
+
+p {
+  font-size: 14px;
 }
 
 a {
