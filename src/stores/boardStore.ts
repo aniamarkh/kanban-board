@@ -87,6 +87,11 @@ export const useBoardStore = defineStore('board', {
   },
 
   actions: {
+    addTask({ targetColumnId, newTask }: { targetColumnId: number, newTask: Task }) {
+      const targetColumn = this.getColumnById(targetColumnId);
+      if (targetColumn) targetColumn.tasks.push(newTask);
+    },
+
     moveTask({ taskId, targetColumnId }: { taskId: number, targetColumnId: number }) {
       let task;
       for (const column of this.board.columns) {

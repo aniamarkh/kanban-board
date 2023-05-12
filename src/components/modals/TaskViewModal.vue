@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { Task } from '@/types/types';
-import ButtonComponent from '../../ButtonComponent.vue';
+import ButtonComponent from '../ButtonComponent.vue';
 import SubtaskCheckbox from './SubtaskCheckbox.vue';
-import StatusSelect from '../StatusSelect.vue';
-import DropdownMenu from '../DropdownMenu.vue';
+import StatusSelect from '../forms/StatusSelect.vue';
+import DropdownMenu from './DropdownMenu.vue';
 
 const props = defineProps<{ data: Task }>();
 
@@ -23,7 +23,7 @@ const subtasksInfo = computed(() => {
       </ButtonComponent>
     </div>
     <h3 class="task-view__title">{{ data.title }}</h3>
-    <p class="task-view__desc">{{ data.desc }}</p>
+    <p v-if="data.desc" class="task-view__desc">{{ data.desc }}</p>
     <div v-if="data.subtasks" class="task-view__subtasks">
       <h4>Subtasks {{ subtasksInfo }}</h4>
       <SubtaskCheckbox
@@ -49,6 +49,7 @@ const subtasksInfo = computed(() => {
   z-index: 4;
   height: auto;
   max-width: 500px;
+  width: 100%;
   padding: 30px;
   background-color: $bg-color;
   border-radius: 15px;

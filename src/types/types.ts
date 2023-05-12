@@ -21,3 +21,8 @@ export interface Board {
   title: string
   columns: Column[]
 }
+
+export interface FormState {
+  task: Task
+  status: number
+};

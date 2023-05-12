@@ -1,31 +1,36 @@
 <script setup>
-import { defineProps, computed } from 'vue';
+import { defineProps, computed, ref } from 'vue';
 import { useBoardStore } from '@/stores/boardStore';
 
 const props = defineProps({
   task: {
     type: Object,
-    required: true,
+    default: null,
   },
 });
 
 const boardStore = useBoardStore();
 const columns = computed(() => boardStore.getBoard.columns);
-const taskColumn = computed(() => boardStore.getColumnForTask(props.task.id));
+const selectedColumnId = ref(
+  props.task ? boardStore.getColumnForTask(props.task.id).id : columns.value[0].id
+);
+
+const emit = defineEmits(['statusChange']);
+
 const onStatusChange = (event) => {
   const targetColumnId = Number(event.target.value);
-  boardStore.moveTask({ taskId: props.task.id, targetColumnId: targetColumnId });
+  selectedColumnId.value = targetColumnId;
+  if (props.task) {
+    boardStore.moveTask({ taskId: props.task.id, targetColumnId: targetColumnId });
+  } else {
+    emit('statusChange', targetColumnId);
+  }
 };
 </script>
 
 <template>
-  <select class="status-select" @change="onStatusChange">
-    <option
-      v-for="column in columns"
-      :key="column.id"
-      :value="column.id"
-      :selected="column.id === taskColumn.id"
-    >
+  <select class="status-select" @change="onStatusChange" v-model="selectedColumnId">
+    <option v-for="column in columns" :key="column.id" :value="column.id">
       {{ column.title }}
     </option>
   </select>

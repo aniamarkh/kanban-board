@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { markRaw } from 'vue';
 import TaskForm from '@/components/modals/TaskFormModal.vue';
-import TaskView from '@/components/modals/TaskView/TaskViewModal.vue';
+import TaskView from '@/components/modals/TaskViewModal.vue';
 import BoardForm from '@/components/modals/BoardFormModal.vue';
 import DeleteNode from '@/components/modals/DeleteNodeModal.vue';
 import type { Board, Task } from '@/types/types';

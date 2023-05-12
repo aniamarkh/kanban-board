@@ -6,6 +6,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    default: 'button',
+  },
 });
 
 const buttonClass = computed(() => {
@@ -15,7 +19,7 @@ const buttonClass = computed(() => {
 
 <template>
   <div class="button__wrapper">
-    <button :class="buttonClass">
+    <button :type="type" :class="buttonClass">
       <slot></slot>
     </button>
   </div>
@@ -40,7 +44,7 @@ const buttonClass = computed(() => {
   @include transition-ease;
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 }
 
@@ -55,6 +59,7 @@ const buttonClass = computed(() => {
   font-weight: normal;
 
   &:hover {
+    transform: none;
     color: $text-color;
   }
 }
