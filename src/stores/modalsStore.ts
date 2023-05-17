@@ -23,7 +23,7 @@ export const useModalsStore = defineStore('modals', {
       TaskView: markRaw(TaskView),
       BoardForm: markRaw(BoardForm),
       DeleteNode: markRaw(DeleteNode),
-    }
+    },
   }),
 
   getters: {
@@ -32,7 +32,7 @@ export const useModalsStore = defineStore('modals', {
     },
     getModalData(): Board | Task | null {
       return this.modalData;
-    }
+    },
   },
 
   actions: {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useModalsStore } from '@/stores/modalsStore.ts';
-import { useBoardStore } from '@/stores/boardStore.ts';
+import { useModalsStore } from '@/stores/modalsStore';
+import { useBoardStore } from '@/stores/boardStore';
 import ButtonComponent from '../ButtonComponent.vue';
-import type { Task } from '@/types/types.ts';
+import type { Task } from '@/types/types';
 
 const props = defineProps<{ data: Task }>();
 

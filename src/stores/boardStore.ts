@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 import type { Board, Column, Subtask, Task } from '../types/types';
 
 export const useBoardStore = defineStore('board', {
@@ -87,15 +87,15 @@ export const useBoardStore = defineStore('board', {
   },
 
   actions: {
-    addTask({ targetColumnId, newTask }: { targetColumnId: number, newTask: Task }) {
+    addTask({ targetColumnId, newTask }: { targetColumnId: number; newTask: Task }) {
       const targetColumn = this.getColumnById(targetColumnId);
       if (targetColumn) targetColumn.tasks.push(newTask);
     },
 
-    moveTask({ taskId, targetColumnId }: { taskId: number, targetColumnId: number }) {
+    moveTask({ taskId, targetColumnId }: { taskId: number; targetColumnId: number }) {
       let task;
       for (const column of this.board.columns) {
-        const taskIndex = column.tasks.findIndex(task => task.id === taskId);
+        const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
         if (taskIndex !== -1) {
           task = column.tasks.splice(taskIndex, 1)[0];
           break;
@@ -109,7 +109,7 @@ export const useBoardStore = defineStore('board', {
 
     deleteTask(taskId: number) {
       for (const column of this.board.columns) {
-        const taskIndex = column.tasks.findIndex(task => task.id === taskId);
+        const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
         if (taskIndex !== -1) {
           column.tasks.splice(taskIndex, 1)[0];
           break;
@@ -124,16 +124,17 @@ export const useBoardStore = defineStore('board', {
     },
 
     getColumnById: (state: { board: Board }) => {
-      return (id: number): Column | undefined => state.board.columns.find((column) => column.id === id);
+      return (id: number): Column | undefined =>
+        state.board.columns.find((column) => column.id === id);
     },
 
     getColumnForTask(state: { board: Board }) {
       return (taskId: number): Column | undefined => {
         for (const column of state.board.columns) {
-          const taskExists = column.tasks.some(task => task.id === taskId);
+          const taskExists = column.tasks.some((task) => task.id === taskId);
           if (taskExists) return column;
         }
-      }
+      };
     },
 
     getTask(state: { board: Board }) {
@@ -143,7 +144,7 @@ export const useBoardStore = defineStore('board', {
           if (!task) continue;
           return task;
         }
-      }
+      };
     },
 
     getSubtask() {
