@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { useModalsStore } from '@/stores/modalsStore.ts';
+import { useModalsStore } from '@/stores/modalsStore';
+import type { Task } from '@/types/types';
 
 defineProps<{ target: String }>();
 
@@ -15,7 +16,7 @@ const closeDropdown = () => {
 
 const modalsStore = useModalsStore();
 const openDeleteModal = () => {
-  modalsStore.openModal('DeleteNode', modalsStore.modalData);
+  modalsStore.openModal('DeleteNode', modalsStore.modalData as Task);
 };
 </script>
 
@@ -33,6 +34,7 @@ const openDeleteModal = () => {
 
 <style scoped lang="scss">
 @import '@/assets/_config.scss';
+
 .dropdown__wrapper {
   @include flex-row;
   height: auto;
@@ -48,6 +50,7 @@ const openDeleteModal = () => {
     color: $text-color;
   }
 }
+
 .dropdown {
   position: absolute;
   background-color: $bg-color;

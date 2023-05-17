@@ -1,24 +1,25 @@
-<script setup>
-import { defineProps, computed, ref } from 'vue';
+<script setup lang="ts">
+import { computed, ref } from 'vue';
 import { useBoardStore } from '@/stores/boardStore';
+import type { Column, Task } from '@/types/types';
 
 const props = defineProps({
   task: {
-    type: Object,
+    type: Object as () => Task | null,
     default: null,
   },
 });
 
+const emit = defineEmits(['statusChange']);
+
 const boardStore = useBoardStore();
 const columns = computed(() => boardStore.getBoard.columns);
 const selectedColumnId = ref(
-  props.task ? boardStore.getColumnForTask(props.task.id).id : columns.value[0].id
+  props.task ? (boardStore.getColumnForTask(props.task.id) as Column).id : columns.value[0].id
 );
 
-const emit = defineEmits(['statusChange']);
-
-const onStatusChange = (event) => {
-  const targetColumnId = Number(event.target.value);
+const onStatusChange = (event: Event) => {
+  const targetColumnId = Number((event.target as HTMLSelectElement).value);
   selectedColumnId.value = targetColumnId;
   if (props.task) {
     boardStore.moveTask({ taskId: props.task.id, targetColumnId: targetColumnId });

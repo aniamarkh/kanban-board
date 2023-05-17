@@ -1,3 +1,17 @@
+<script setup lang="ts">
+defineProps({
+  modelValue: String,
+  inputName: String,
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+const onInput = (event: Event) => {
+  const target = event.target as HTMLTextAreaElement;
+  emit('update:modelValue', target.value);
+};
+</script>
+
 <template>
   <div class="textarea-input__wrapper">
     <label class="textarea-input__label" v-if="inputName" :for="inputName">
@@ -8,18 +22,11 @@
       rows="3"
       :id="inputName"
       :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
+      @input="onInput"
       v-bind="$attrs"
     />
   </div>
 </template>
-
-<script setup lang="ts">
-defineProps({
-  modelValue: String,
-  inputName: String,
-});
-</script>
 
 <style scoped lang="scss">
 @import '@/assets/_config.scss';

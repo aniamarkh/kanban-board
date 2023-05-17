@@ -1,19 +1,3 @@
-<template>
-  <div class="text-input__wrapper">
-    <label class="text-input__label" v-if="inputName" :for="inputName">
-      {{ inputName }}
-    </label>
-    <input
-      :class="inputClass"
-      :id="inputName"
-      :value="modelValue"
-      @input="onInput($event)"
-      v-bind="$attrs"
-    />
-    <p class="text-input__error" v-if="isError">This field is required</p>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { computed } from 'vue';
 const props = defineProps({
@@ -31,8 +15,9 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue', 'inputChange']);
 
-const onInput = (e) => {
-  emit('update:modelValue', e.target.value);
+const onInput = (event: Event) => {
+  const target = event.target as HTMLTextAreaElement;
+  emit('update:modelValue', target.value);
   emit('inputChange');
 };
 
@@ -40,6 +25,22 @@ const inputClass = computed(() => {
   return props.isError ? 'text-input__input--error' : 'text-input__input';
 });
 </script>
+
+<template>
+  <div class="text-input__wrapper">
+    <label class="text-input__label" v-if="inputName" :for="inputName">
+      {{ inputName }}
+    </label>
+    <input
+      :class="inputClass"
+      :id="inputName"
+      :value="modelValue"
+      @input="onInput($event)"
+      v-bind="$attrs"
+    />
+    <p class="text-input__error" v-if="isError">This field is required</p>
+  </div>
+</template>
 
 <style scoped lang="scss">
 @import '@/assets/_config.scss';

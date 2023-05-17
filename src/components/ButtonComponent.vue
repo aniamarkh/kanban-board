@@ -7,7 +7,7 @@ const props = defineProps({
     required: true,
   },
   type: {
-    type: String,
+    type: String as () => 'button' | 'submit' | 'reset',
     default: 'button',
   },
 });

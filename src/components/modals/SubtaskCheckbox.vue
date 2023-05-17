@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
 import { useBoardStore } from '@/stores/boardStore';
 const props = defineProps({
@@ -15,7 +15,7 @@ const props = defineProps({
 const boardStore = useBoardStore();
 const toggleSubtask = () => {
   const subtaskNode = boardStore.getSubtask(props.taskId, props.subtask.id);
-  subtaskNode.done = !subtaskNode.done;
+  if (subtaskNode) subtaskNode.done = !subtaskNode.done;
 };
 
 const labelClass = computed(() => {
@@ -64,6 +64,7 @@ const labelClass = computed(() => {
 
 .subtask__input {
   display: none;
+
   &:checked + .subtask__checkbox {
     &:after {
       top: 0;
@@ -81,6 +82,7 @@ const labelClass = computed(() => {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+
   &:after {
     background-color: $dark-grey;
     width: 10px;

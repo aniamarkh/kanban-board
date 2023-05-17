@@ -6,6 +6,7 @@ import { useBoardStore } from '@/stores/boardStore';
 import ButtonComponent from '../ButtonComponent.vue';
 import StatusSelect from '../forms/StatusSelect.vue';
 import TextInput from '../forms/TextInput.vue';
+import TextareaInput from '../forms/TextareaInput.vue';
 
 const boardStore = useBoardStore();
 const formState: FormState = reactive({
@@ -24,7 +25,7 @@ const formState: FormState = reactive({
   statusColumnId: boardStore.getBoard.columns[0].id,
   isTitleError: false,
 });
-const titleInput: Ref<string | null> = ref(null);
+const titleInput: Ref<string> = ref('');
 
 const addSubtaskInput = () => {
   formState.task.subtasks.push({ id: 0, title: '', done: false });
@@ -87,7 +88,7 @@ const onFormSubmit = () => {
         inputName="Task Title"
         placeholder="Enter title for a task"
       />
-      <TextInput
+      <TextareaInput
         v-model="formState.task.desc"
         inputName="Task Description"
         placeholder="Enter description for a task"
