@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import type { Ref } from 'vue';
+import { v4 as uuid } from 'uuid';
 import type { FormState } from '@/types/types';
 import { useBoardStore } from '@/stores/boardStore';
 import ButtonComponent from '../ButtonComponent.vue';
@@ -9,29 +10,33 @@ import TextInput from '../forms/TextInput.vue';
 import TextareaInput from '../forms/TextareaInput.vue';
 
 const boardStore = useBoardStore();
+
+const newSubtask = () => ({
+  id: uuid(),
+  title: '',
+  done: false,
+});
+
+const newTask = () => ({
+  id: uuid(),
+  title: '',
+  desc: '',
+  subtasks: [newSubtask()],
+});
+
 const formState: FormState = reactive({
-  task: {
-    id: 0,
-    title: '',
-    desc: '',
-    subtasks: [
-      {
-        id: 0,
-        title: '',
-        done: false,
-      },
-    ],
-  },
+  task: newTask(),
   statusColumnId: boardStore.getBoard.columns[0].id,
   isTitleError: false,
 });
+
 const titleInput: Ref<string> = ref('');
 
 const addSubtaskInput = () => {
-  formState.task.subtasks.push({ id: 0, title: '', done: false });
+  formState.task.subtasks.push(newSubtask());
 };
 
-const setStatusForNewTask = (targetColumnId: number) => {
+const setStatusForNewTask = (targetColumnId: string) => {
   formState.statusColumnId = targetColumnId;
 };
 
@@ -46,24 +51,14 @@ const isValidForm = (): Boolean => {
 };
 
 const resetForm = () => {
-  formState.task = {
-    id: 0,
-    title: '',
-    desc: '',
-    subtasks: [
-      {
-        id: 0,
-        title: '',
-        done: false,
-      },
-    ],
-  };
+  formState.task = newTask();
+  formState.statusColumnId = boardStore.getBoard.columns[0].id;
 };
 
 const onFormSubmit = () => {
   if (isValidForm()) {
     const newTask = {
-      id: 999,
+      id: formState.task.id,
       title: formState.task.title,
       desc: formState.task.desc,
       subtasks: formState.task.subtasks.filter((subtask) => subtask.title.trim() !== ''),
@@ -79,7 +74,7 @@ const onFormSubmit = () => {
     <ButtonComponent @click="$emit('close')" btnClass="no-font" class="task-form__close-button">
       <span class="material-icons-outlined"> close </span>
     </ButtonComponent>
-    <form class="task-form__form" @submit.prevent="onFormSubmit">
+    <form class="task-form__form" @submit.prevent="onFormSubmit" autocomplete="off">
       <TextInput
         :ref="titleInput"
         v-model="formState.task.title"

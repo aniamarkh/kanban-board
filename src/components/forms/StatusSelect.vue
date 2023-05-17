@@ -19,7 +19,7 @@ const selectedColumnId = ref(
 );
 
 const onStatusChange = (event: Event) => {
-  const targetColumnId = Number((event.target as HTMLSelectElement).value);
+  const targetColumnId = (event.target as HTMLSelectElement).value;
   selectedColumnId.value = targetColumnId;
   if (props.task) {
     boardStore.moveTask({ taskId: props.task.id, targetColumnId: targetColumnId });

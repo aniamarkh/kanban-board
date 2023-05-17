@@ -8,26 +8,26 @@ export const useBoardStore = defineStore('board', {
         title: 'Sample Kanban Board',
         columns: [
           {
-            id: 1,
+            id: '1',
             title: 'To Do',
             tasks: [
               {
-                id: 4,
+                id: '4',
                 title: 'Implement Authentication',
                 desc: 'Add user authentication for sign-up, login, and password reset functionality.',
                 subtasks: [
                   {
-                    id: 7,
+                    id: '7',
                     title: 'Integrate OAuth',
                     done: false,
                   },
                   {
-                    id: 8,
+                    id: '8',
                     title: 'Create sign-up form',
                     done: false,
                   },
                   {
-                    id: 9,
+                    id: '9',
                     title: 'Create login form',
                     done: false,
                   },
@@ -36,21 +36,21 @@ export const useBoardStore = defineStore('board', {
             ],
           },
           {
-            id: 2,
+            id: '2',
             title: 'In Progress',
             tasks: [
               {
-                id: 5,
+                id: '5',
                 title: 'Design App Layout',
                 desc: 'Create the user interface and overall design of the pet project app.',
                 subtasks: [
                   {
-                    id: 10,
+                    id: '10',
                     title: 'Choose color scheme',
                     done: true,
                   },
                   {
-                    id: 11,
+                    id: '11',
                     title: 'Design app logo',
                     done: false,
                   },
@@ -59,21 +59,21 @@ export const useBoardStore = defineStore('board', {
             ],
           },
           {
-            id: 3,
+            id: '3',
             title: 'Done',
             tasks: [
               {
-                id: 6,
+                id: '6',
                 title: 'Set up Project Repository',
                 desc: 'Initialize the repository, set up branches, and commit the initial project structure.',
                 subtasks: [
                   {
-                    id: 12,
+                    id: '12',
                     title: 'Create GitHub repo',
                     done: true,
                   },
                   {
-                    id: 13,
+                    id: '13',
                     title: 'Commit initial project structure',
                     done: true,
                   },
@@ -87,12 +87,12 @@ export const useBoardStore = defineStore('board', {
   },
 
   actions: {
-    addTask({ targetColumnId, newTask }: { targetColumnId: number; newTask: Task }) {
+    addTask({ targetColumnId, newTask }: { targetColumnId: string; newTask: Task }) {
       const targetColumn = this.getColumnById(targetColumnId);
       if (targetColumn) targetColumn.tasks.push(newTask);
     },
 
-    moveTask({ taskId, targetColumnId }: { taskId: number; targetColumnId: number }) {
+    moveTask({ taskId, targetColumnId }: { taskId: string; targetColumnId: string }) {
       let task;
       for (const column of this.board.columns) {
         const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
@@ -107,7 +107,7 @@ export const useBoardStore = defineStore('board', {
       }
     },
 
-    deleteTask(taskId: number) {
+    deleteTask(taskId: string) {
       for (const column of this.board.columns) {
         const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
         if (taskIndex !== -1) {
@@ -124,12 +124,12 @@ export const useBoardStore = defineStore('board', {
     },
 
     getColumnById: (state: { board: Board }) => {
-      return (id: number): Column | undefined =>
+      return (id: string): Column | undefined =>
         state.board.columns.find((column) => column.id === id);
     },
 
     getColumnForTask(state: { board: Board }) {
-      return (taskId: number): Column | undefined => {
+      return (taskId: string): Column | undefined => {
         for (const column of state.board.columns) {
           const taskExists = column.tasks.some((task) => task.id === taskId);
           if (taskExists) return column;
@@ -138,7 +138,7 @@ export const useBoardStore = defineStore('board', {
     },
 
     getTask(state: { board: Board }) {
-      return (id: number): Task | undefined => {
+      return (id: string): Task | undefined => {
         for (const column of state.board.columns) {
           const task = column.tasks.find((task) => task.id === id);
           if (!task) continue;
@@ -148,7 +148,7 @@ export const useBoardStore = defineStore('board', {
     },
 
     getSubtask() {
-      return (taskId: number, subtaskId: number): Subtask | undefined => {
+      return (taskId: string, subtaskId: string): Subtask | undefined => {
         const task = this.getTask(taskId);
         if (!task) return;
         return task.subtasks.find((subtask) => subtask.id === subtaskId);

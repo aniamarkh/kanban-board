@@ -7,7 +7,7 @@ const props = defineProps({
     required: true,
   },
   taskId: {
-    type: Number,
+    type: String,
     required: true,
   },
 });

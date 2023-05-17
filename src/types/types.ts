@@ -1,18 +1,18 @@
 export interface Subtask {
-  id: number;
+  id: string;
   title: string;
   done: boolean;
 }
 
 export interface Task {
-  id: number;
+  id: string;
   title: string;
   desc: string;
   subtasks: Subtask[];
 }
 
 export interface Column {
-  id: number;
+  id: string;
   title: string;
   tasks: Task[];
 }
@@ -24,6 +24,6 @@ export interface Board {
 
 export interface FormState {
   task: Task;
-  statusColumnId: number;
+  statusColumnId: string;
   isTitleError: boolean;
 }
