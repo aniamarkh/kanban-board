@@ -62,24 +62,20 @@ const isValidForm = (): Boolean => {
 const emit = defineEmits(['close']);
 
 const onFormSubmit = () => {
-  if (isValidForm()) {
-    const newTask = {
-      id: formState.task.id,
-      title: formState.task.title,
-      desc: formState.task.desc,
-      subtasks: formState.task.subtasks.filter((subtask) => subtask.title.trim() !== ''),
-    };
-    if (props.data) {
-      boardStore.editTask({
-        taskId: props.data.id,
-        taskObj: newTask,
-        targetColumnId: formState.statusColumnId,
-      });
-    } else {
-      boardStore.addTask({ targetColumnId: formState.statusColumnId, newTask: newTask });
-    }
-    emit('close');
+  if (!isValidForm()) return;
+
+  const formResult = {
+    id: formState.task.id,
+    title: formState.task.title,
+    desc: formState.task.desc,
+    subtasks: formState.task.subtasks.filter((subtask) => subtask.title.trim() !== ''),
+  };
+  if (props.data) {
+    boardStore.editTask({ taskObj: formResult, targetColumnId: formState.statusColumnId });
+  } else {
+    boardStore.addTask({ targetColumnId: formState.statusColumnId, newTask: formResult });
   }
+  emit('close');
 };
 </script>
 

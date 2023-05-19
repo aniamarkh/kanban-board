@@ -29,20 +29,12 @@ export const useBoardStore = defineStore('board', {
       column.tasks.splice(taskIndex, 1)[0];
     },
 
-    editTask({
-      taskId,
-      taskObj,
-      targetColumnId,
-    }: {
-      taskId: string;
-      taskObj: Task;
-      targetColumnId: string;
-    }) {
-      const column = this.getColumnForTask(taskId);
+    editTask({ taskObj, targetColumnId }: { taskObj: Task; targetColumnId: string }) {
+      const column = this.getColumnForTask(taskObj.id);
       if (!column) return;
-      const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
+      const taskIndex = column.tasks.findIndex((task) => task.id === taskObj.id);
       column.tasks[taskIndex] = taskObj;
-      if (targetColumnId !== column.id) this.moveTask({ taskId, targetColumnId });
+      if (targetColumnId !== column.id) this.moveTask({ taskId: taskObj.id, targetColumnId });
     },
   },
 
