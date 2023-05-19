@@ -1,17 +1,11 @@
 import { defineStore } from 'pinia';
 import { initBoard } from '@/assets/initBoard';
-import type { Board, Column, Subtask, Task } from '../types/types';
+import type { Board, Column, Task } from '../types/types';
 
 export const useBoardStore = defineStore('board', {
-  state(): { board: Board; activeColumn: Column | null; activeTask: Task | null } {
+  state(): { board: Board } {
     const savedState = localStorage.getItem('board');
-    const board = savedState ? JSON.parse(savedState) : initBoard;
-
-    return {
-      board,
-      activeColumn: null,
-      activeTask: null,
-    };
+    return savedState ? JSON.parse(savedState) : { board: initBoard };
   },
 
   actions: {
@@ -19,17 +13,13 @@ export const useBoardStore = defineStore('board', {
       const targetColumn = this.getColumnById(targetColumnId);
       if (!targetColumn) return;
       targetColumn.tasks.push(newTask);
-      this.saveToLocalStore();
     },
 
     moveTask({ taskId, targetColumnId }: { taskId: string; targetColumnId: string }) {
-      const task: Task = { ...(this.getTask(taskId) as Task) };
+      const task: Task = { ...(this.getTaskById(taskId) as Task) };
       this.deleteTask(taskId);
       const targetColumn = this.getColumnById(targetColumnId);
-      if (task && targetColumn) {
-        targetColumn.tasks.push(task);
-        this.saveToLocalStore();
-      }
+      if (task && targetColumn) targetColumn.tasks.push(task);
     },
 
     deleteTask(taskId: string) {
@@ -37,7 +27,6 @@ export const useBoardStore = defineStore('board', {
       if (!column) return;
       const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
       column.tasks.splice(taskIndex, 1)[0];
-      this.saveToLocalStore();
     },
 
     editTask({
@@ -54,11 +43,6 @@ export const useBoardStore = defineStore('board', {
       const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
       column.tasks[taskIndex] = taskObj;
       if (targetColumnId !== column.id) this.moveTask({ taskId, targetColumnId });
-      this.saveToLocalStore();
-    },
-
-    saveToLocalStore() {
-      localStorage.setItem('board', JSON.stringify(this.board));
     },
   },
 
@@ -81,21 +65,11 @@ export const useBoardStore = defineStore('board', {
       };
     },
 
-    getTask(state: { board: Board }) {
+    getTaskById() {
       return (id: string): Task | undefined => {
-        for (const column of state.board.columns) {
-          const task = column.tasks.find((task) => task.id === id);
-          if (!task) continue;
-          return task;
-        }
-      };
-    },
-
-    getSubtask() {
-      return (taskId: string, subtaskId: string): Subtask | undefined => {
-        const task = this.getTask(taskId);
-        if (!task) return;
-        return task.subtasks.find((subtask) => subtask.id === subtaskId);
+        const column = this.getColumnForTask(id);
+        if (!column) return;
+        return column.tasks.find((task) => task.id === id);
       };
     },
   },

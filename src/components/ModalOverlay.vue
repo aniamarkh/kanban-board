@@ -19,7 +19,7 @@ const modalsStore = useModalsStore();
 </template>
 
 <style scoped lang="scss">
-@import '../../assets/_config.scss';
+@import '@/assets/_config.scss';
 
 .modal__window {
   position: absolute;

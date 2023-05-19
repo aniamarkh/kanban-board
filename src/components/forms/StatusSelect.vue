@@ -10,10 +10,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['statusChange']);
-
 const boardStore = useBoardStore();
-
 const columns = computed(() => boardStore.getBoard.columns);
 
 const selectedColumnId = ref(
@@ -21,6 +18,8 @@ const selectedColumnId = ref(
     ? (boardStore.getColumnForTask(props.task.id) as Column).id
     : columns.value[0].id
 );
+
+const emit = defineEmits(['statusChange']);
 
 const onStatusChange = (event: Event) => {
   const targetColumnId = (event.target as HTMLSelectElement).value;

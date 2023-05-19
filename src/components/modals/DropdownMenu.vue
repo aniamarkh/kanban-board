@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useModalsStore } from '@/stores/modalsStore';
-import type { Task } from '@/types/types';
 
-defineProps<{ target: String }>();
-
+const modalsStore = useModalsStore();
 const isDropdownOpen = ref(false);
 const dropdownClass = computed(() => {
   return isDropdownOpen.value ? 'dropdown' : 'dropdown--closed';
@@ -12,14 +10,6 @@ const dropdownClass = computed(() => {
 
 const closeDropdown = () => {
   isDropdownOpen.value = false;
-};
-
-const modalsStore = useModalsStore();
-const openDeleteModal = () => {
-  modalsStore.openModal('DeleteNode', modalsStore.modalData as Task);
-};
-const openFormModal = () => {
-  modalsStore.openModal('TaskForm', modalsStore.modalData as Task);
 };
 </script>
 
@@ -29,8 +19,15 @@ const openFormModal = () => {
       more_horiz
     </span>
     <div v-if="isDropdownOpen" :class="dropdownClass">
-      <p class="dropdown__option" @click="openFormModal">Edit {{ target }}</p>
-      <p class="dropdown__option--delete" @click="openDeleteModal">Delete {{ target }}</p>
+      <p class="dropdown__option" @click="modalsStore.openModal('TaskForm', modalsStore.modalData)">
+        Edit Task
+      </p>
+      <p
+        class="dropdown__option--delete"
+        @click="modalsStore.openModal('DeleteNode', modalsStore.modalData)"
+      >
+        Delete Task
+      </p>
     </div>
   </div>
 </template>

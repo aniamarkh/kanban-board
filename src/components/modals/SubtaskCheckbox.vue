@@ -11,10 +11,12 @@ const props = defineProps({
     required: true,
   },
 });
-
 const boardStore = useBoardStore();
+
 const toggleSubtask = () => {
-  const subtaskNode = boardStore.getSubtask(props.taskId, props.subtask.id);
+  const subtaskNode = boardStore
+    .getTaskById(props.taskId)
+    ?.subtasks.find((subtask) => subtask.id === props.subtask.id);
   if (subtaskNode) subtaskNode.done = !subtaskNode.done;
 };
 

@@ -1,16 +1,9 @@
 <script setup lang="ts">
-import { computed, type ComputedRef } from 'vue';
 import Draggable from 'vuedraggable';
-import { useBoardStore } from '@/stores/boardStore';
 import type { Column } from '@/types/types';
 import TaskCard from './TaskCard.vue';
 
-const props = defineProps<{ columnId: string }>();
-const boardStore = useBoardStore();
-
-const column: ComputedRef<Column> = computed(() => {
-  return boardStore.getColumnById(props.columnId) as Column;
-});
+defineProps<{ column: Column }>();
 
 const modifyDragItem = (dataTransfer: DataTransfer) => {
   dataTransfer.setDragImage(document.createElement('div'), 0, 0);
@@ -23,7 +16,6 @@ const modifyDragItem = (dataTransfer: DataTransfer) => {
     item-key="id"
     group="task-cards"
     :setData="modifyDragItem"
-    @end="boardStore.saveToLocalStore"
     class="board__column"
   >
     <template #header>

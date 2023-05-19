@@ -10,7 +10,7 @@ const boardStore = useBoardStore();
     <WorkflowColumn
       v-for="(column, index) in boardStore.getBoard.columns"
       :key="index"
-      :columnId="column.id"
+      :column="column"
     />
   </div>
 </template>
