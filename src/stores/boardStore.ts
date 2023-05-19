@@ -3,18 +3,23 @@ import { initBoard } from '@/assets/initBoard';
 import type { Board, Column, Subtask, Task } from '../types/types';
 
 export const useBoardStore = defineStore('board', {
-  state(): { board: Board } {
+  state(): { board: Board; activeColumn: Column | null; activeTask: Task | null } {
     const savedState = localStorage.getItem('board');
-    return savedState ? { board: JSON.parse(savedState) } : { board: initBoard };
+    const board = savedState ? JSON.parse(savedState) : initBoard;
+
+    return {
+      board,
+      activeColumn: null,
+      activeTask: null,
+    };
   },
 
   actions: {
     addTask({ targetColumnId, newTask }: { targetColumnId: string; newTask: Task }) {
       const targetColumn = this.getColumnById(targetColumnId);
-      if (targetColumn) {
-        targetColumn.tasks.push(newTask);
-        this.saveToLocalStore();
-      }
+      if (!targetColumn) return;
+      targetColumn.tasks.push(newTask);
+      this.saveToLocalStore();
     },
 
     moveTask({ taskId, targetColumnId }: { taskId: string; targetColumnId: string }) {
@@ -29,10 +34,9 @@ export const useBoardStore = defineStore('board', {
 
     deleteTask(taskId: string) {
       const column = this.getColumnForTask(taskId);
-      if (column) {
-        const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
-        column.tasks.splice(taskIndex, 1)[0];
-      }
+      if (!column) return;
+      const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
+      column.tasks.splice(taskIndex, 1)[0];
       this.saveToLocalStore();
     },
 
@@ -46,14 +50,11 @@ export const useBoardStore = defineStore('board', {
       targetColumnId: string;
     }) {
       const column = this.getColumnForTask(taskId);
-      if (column) {
-        const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
-        column.tasks[taskIndex] = taskObj;
-        if (targetColumnId !== column.id) {
-          this.moveTask({ taskId, targetColumnId });
-        }
-        this.saveToLocalStore();
-      }
+      if (!column) return;
+      const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
+      column.tasks[taskIndex] = taskObj;
+      if (targetColumnId !== column.id) this.moveTask({ taskId, targetColumnId });
+      this.saveToLocalStore();
     },
 
     saveToLocalStore() {
