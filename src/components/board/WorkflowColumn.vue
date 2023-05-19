@@ -23,6 +23,7 @@ const modifyDragItem = (dataTransfer: DataTransfer) => {
     item-key="id"
     group="task-cards"
     :setData="modifyDragItem"
+    @end="boardStore.saveState"
     class="board__column"
   >
     <template #header>
@@ -41,7 +42,7 @@ const modifyDragItem = (dataTransfer: DataTransfer) => {
   align-items: flex-start;
   gap: 10px;
   width: 290px;
-  min-height: 300px;
+  padding-bottom: 100px;
 }
 
 .column__title {
