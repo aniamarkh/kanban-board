@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
-import type { Ref } from 'vue';
+import { reactive, computed } from 'vue';
 import { v4 as uuid } from 'uuid';
-import type { FormState } from '@/types/types';
+import type { FormState, Task, Column } from '@/types/types';
 import { useBoardStore } from '@/stores/boardStore';
 import ButtonComponent from '../ButtonComponent.vue';
 import StatusSelect from '../forms/StatusSelect.vue';
@@ -10,6 +9,12 @@ import TextInput from '../forms/TextInput.vue';
 import TextareaInput from '../forms/TextareaInput.vue';
 
 const boardStore = useBoardStore();
+const props = defineProps({
+  data: {
+    type: Object as () => Task | null,
+    default: null,
+  },
+});
 
 const newSubtask = () => ({
   id: uuid(),
@@ -24,24 +29,28 @@ const newTask = () => ({
   subtasks: [newSubtask()],
 });
 
-const formState: FormState = reactive({
-  task: newTask(),
-  statusColumnId: boardStore.getBoard.columns[0].id,
-  isTitleError: false,
+const statusColumnId = computed(() => {
+  return props.data
+    ? (boardStore.getColumnForTask(props.data.id) as Column).id
+    : boardStore.getBoard.columns[0].id;
 });
 
-const titleInput: Ref<string> = ref('');
+const formState: FormState = reactive({
+  task: props.data ? JSON.parse(JSON.stringify(props.data)) : newTask(),
+  statusColumnId: statusColumnId.value,
+  isTitleError: false,
+});
 
 const addSubtaskInput = () => {
   formState.task.subtasks.push(newSubtask());
 };
 
-const setStatusForNewTask = (targetColumnId: string) => {
+const setStatusForTask = (targetColumnId: string) => {
   formState.statusColumnId = targetColumnId;
 };
 
 const isValidForm = (): Boolean => {
-  if (formState.task.title.trim().length === 0) {
+  if (!formState.task.title.trim().length) {
     formState.isTitleError = true;
     return false;
   } else {
@@ -50,10 +59,7 @@ const isValidForm = (): Boolean => {
   }
 };
 
-const resetForm = () => {
-  formState.task = newTask();
-  formState.statusColumnId = boardStore.getBoard.columns[0].id;
-};
+const emit = defineEmits(['close']);
 
 const onFormSubmit = () => {
   if (isValidForm()) {
@@ -63,8 +69,16 @@ const onFormSubmit = () => {
       desc: formState.task.desc,
       subtasks: formState.task.subtasks.filter((subtask) => subtask.title.trim() !== ''),
     };
-    boardStore.addTask({ targetColumnId: formState.statusColumnId, newTask: newTask });
-    resetForm();
+    if (props.data) {
+      boardStore.editTask({
+        taskId: props.data.id,
+        taskObj: newTask,
+        targetColumnId: formState.statusColumnId,
+      });
+    } else {
+      boardStore.addTask({ targetColumnId: formState.statusColumnId, newTask: newTask });
+    }
+    emit('close');
   }
 };
 </script>
@@ -76,7 +90,6 @@ const onFormSubmit = () => {
     </ButtonComponent>
     <form class="task-form__form" @submit.prevent="onFormSubmit" autocomplete="off">
       <TextInput
-        :ref="titleInput"
         v-model="formState.task.title"
         :isError="formState.isTitleError"
         @inputChange="formState.isTitleError = false"
@@ -103,10 +116,10 @@ const onFormSubmit = () => {
       </div>
       <div class="task-form__status">
         <h4>Current Status</h4>
-        <StatusSelect @statusChange="setStatusForNewTask" />
+        <StatusSelect :task="data" @statusChange="setStatusForTask" />
       </div>
       <ButtonComponent btnClass="primary" class="task-form__confirm-btn" type="submit">
-        Create New Task
+        {{ data ? 'Save Changes' : 'Create New Task' }}
       </ButtonComponent>
     </form>
   </div>

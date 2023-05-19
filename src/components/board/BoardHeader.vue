@@ -7,7 +7,7 @@ const boardStore = useBoardStore();
 const modalsStore = useModalsStore();
 
 const openTaskForm = () => {
-  modalsStore.openModal('TaskForm', boardStore.getBoard);
+  modalsStore.openModal('TaskForm', null);
 };
 </script>
 

@@ -36,7 +36,7 @@ export const useModalsStore = defineStore('modals', {
   },
 
   actions: {
-    openModal(modalName: keyof ModalsState['modalComponentsMap'], data: Task | Board) {
+    openModal(modalName: keyof ModalsState['modalComponentsMap'], data: Task | Board | null) {
       this.activeModalComponent = this.modalComponentsMap[modalName];
       this.modalData = data;
     },

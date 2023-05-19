@@ -5,14 +5,7 @@ import type { Board, Column, Subtask, Task } from '../types/types';
 export const useBoardStore = defineStore('board', {
   state(): { board: Board } {
     const savedState = localStorage.getItem('board');
-    if (savedState) {
-      return {
-        board: JSON.parse(savedState),
-      };
-    }
-    return {
-      board: initBoard,
-    };
+    return savedState ? { board: JSON.parse(savedState) } : { board: initBoard };
   },
 
   actions: {
@@ -20,38 +13,50 @@ export const useBoardStore = defineStore('board', {
       const targetColumn = this.getColumnById(targetColumnId);
       if (targetColumn) {
         targetColumn.tasks.push(newTask);
-        this.saveState();
+        this.saveToLocalStore();
       }
     },
 
     moveTask({ taskId, targetColumnId }: { taskId: string; targetColumnId: string }) {
-      let task;
-      for (const column of this.board.columns) {
-        const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
-        if (taskIndex !== -1) {
-          task = column.tasks.splice(taskIndex, 1)[0];
-          break;
-        }
-      }
+      const task: Task = { ...(this.getTask(taskId) as Task) };
+      this.deleteTask(taskId);
       const targetColumn = this.getColumnById(targetColumnId);
       if (task && targetColumn) {
         targetColumn.tasks.push(task);
-        this.saveState();
+        this.saveToLocalStore();
       }
     },
 
     deleteTask(taskId: string) {
-      for (const column of this.board.columns) {
+      const column = this.getColumnForTask(taskId);
+      if (column) {
         const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
-        if (taskIndex !== -1) {
-          column.tasks.splice(taskIndex, 1)[0];
-          break;
-        }
+        column.tasks.splice(taskIndex, 1)[0];
       }
-      this.saveState();
+      this.saveToLocalStore();
     },
 
-    saveState() {
+    editTask({
+      taskId,
+      taskObj,
+      targetColumnId,
+    }: {
+      taskId: string;
+      taskObj: Task;
+      targetColumnId: string;
+    }) {
+      const column = this.getColumnForTask(taskId);
+      if (column) {
+        const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
+        column.tasks[taskIndex] = taskObj;
+        if (targetColumnId !== column.id) {
+          this.moveTask({ taskId, targetColumnId });
+        }
+        this.saveToLocalStore();
+      }
+    },
+
+    saveToLocalStore() {
       localStorage.setItem('board', JSON.stringify(this.board));
     },
   },

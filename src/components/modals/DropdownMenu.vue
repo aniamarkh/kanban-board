@@ -18,6 +18,9 @@ const modalsStore = useModalsStore();
 const openDeleteModal = () => {
   modalsStore.openModal('DeleteNode', modalsStore.modalData as Task);
 };
+const openFormModal = () => {
+  modalsStore.openModal('TaskForm', modalsStore.modalData as Task);
+};
 </script>
 
 <template>
@@ -26,7 +29,7 @@ const openDeleteModal = () => {
       more_horiz
     </span>
     <div v-if="isDropdownOpen" :class="dropdownClass">
-      <p class="dropdown__option">Edit {{ target }}</p>
+      <p class="dropdown__option" @click="openFormModal">Edit {{ target }}</p>
       <p class="dropdown__option--delete" @click="openDeleteModal">Delete {{ target }}</p>
     </div>
   </div>

@@ -23,7 +23,7 @@ const modifyDragItem = (dataTransfer: DataTransfer) => {
     item-key="id"
     group="task-cards"
     :setData="modifyDragItem"
-    @end="boardStore.saveState"
+    @end="boardStore.saveToLocalStore"
     class="board__column"
   >
     <template #header>

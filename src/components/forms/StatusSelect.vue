@@ -13,19 +13,19 @@ const props = defineProps({
 const emit = defineEmits(['statusChange']);
 
 const boardStore = useBoardStore();
+
 const columns = computed(() => boardStore.getBoard.columns);
+
 const selectedColumnId = ref(
-  props.task ? (boardStore.getColumnForTask(props.task.id) as Column).id : columns.value[0].id
+  props.task && props.task.id
+    ? (boardStore.getColumnForTask(props.task.id) as Column).id
+    : columns.value[0].id
 );
 
 const onStatusChange = (event: Event) => {
   const targetColumnId = (event.target as HTMLSelectElement).value;
   selectedColumnId.value = targetColumnId;
-  if (props.task) {
-    boardStore.moveTask({ taskId: props.task.id, targetColumnId: targetColumnId });
-  } else {
-    emit('statusChange', targetColumnId);
-  }
+  emit('statusChange', targetColumnId);
 };
 </script>
 

@@ -1,17 +1,23 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useBoardStore } from '@/stores/boardStore';
 import type { Task } from '@/types/types';
 import ButtonComponent from '../ButtonComponent.vue';
 import SubtaskCheckbox from './SubtaskCheckbox.vue';
 import StatusSelect from '../forms/StatusSelect.vue';
 import DropdownMenu from './DropdownMenu.vue';
 
+const boardStore = useBoardStore();
 const props = defineProps<{ data: Task }>();
 
 const subtasksInfo = computed(() => {
   const done = props.data.subtasks.filter((subtask) => subtask.done === true).length;
   return `(${done} of ${props.data.subtasks.length})`;
 });
+
+const setStatusForTask = (targetColumnId: string) => {
+  boardStore.moveTask({ taskId: props.data.id, targetColumnId: targetColumnId });
+};
 </script>
 
 <template>
@@ -24,7 +30,7 @@ const subtasksInfo = computed(() => {
     </div>
     <h3 class="task-view__title">{{ data.title }}</h3>
     <p v-if="data.desc" class="task-view__desc">{{ data.desc }}</p>
-    <div v-if="data.subtasks" class="task-view__subtasks">
+    <div v-if="data.subtasks.length" class="task-view__subtasks">
       <h4>Subtasks {{ subtasksInfo }}</h4>
       <SubtaskCheckbox
         v-for="(subtask, index) in data.subtasks"
@@ -35,7 +41,7 @@ const subtasksInfo = computed(() => {
     </div>
     <div class="task-view__status">
       <h4>Current Status</h4>
-      <StatusSelect :task="data" />
+      <StatusSelect @statusChange="setStatusForTask" :task="data" />
     </div>
   </div>
 </template>

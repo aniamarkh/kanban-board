@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import type { Task } from '@/types/types';
 import { useModalsStore } from '@/stores/modalsStore';
+
 const props = defineProps<{ task: Task }>();
 const modalsStore = useModalsStore();
 
