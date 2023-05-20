@@ -140,16 +140,7 @@ const onFormSubmit = () => {
 @import '@/assets/_config.scss';
 
 .task-form__wrapper {
-  position: relative;
-  @include flex-column;
-  z-index: 4;
-  height: auto;
-  max-width: 500px;
-  width: 100%;
-  padding: 30px;
-  background-color: $bg-color;
-  border-radius: 15px;
-  margin: 10px;
+  @include modal-wrapper;
 }
 
 .task-form__close-button {
