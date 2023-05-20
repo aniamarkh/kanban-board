@@ -45,7 +45,6 @@ const onInput = (event: Event) => {
   padding: 10px;
   background-color: $grey;
   border: none;
-  @include shadow;
   border-radius: 10px;
 }
 </style>

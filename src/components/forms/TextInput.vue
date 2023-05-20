@@ -49,6 +49,7 @@ const inputClass = computed(() => {
   position: relative;
   @include flex-column;
   gap: 10px;
+  width: 100%;
 }
 
 .text-input__label {
@@ -60,7 +61,6 @@ const inputClass = computed(() => {
   padding: 10px;
   background-color: $grey;
   border: none;
-  @include shadow;
   border-radius: 10px;
 }
 

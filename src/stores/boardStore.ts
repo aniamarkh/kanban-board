@@ -26,7 +26,7 @@ export const useBoardStore = defineStore('board', {
       const column = this.getColumnForTask(taskId);
       if (!column) return;
       const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
-      column.tasks.splice(taskIndex, 1)[0];
+      column.tasks.splice(taskIndex, 1);
     },
 
     editTask({ taskObj, targetColumnId }: { taskObj: Task; targetColumnId: string }) {

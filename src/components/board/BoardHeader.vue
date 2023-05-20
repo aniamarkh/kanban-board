@@ -5,10 +5,6 @@ import ButtonComponent from '@/components/ButtonComponent.vue';
 
 const boardStore = useBoardStore();
 const modalsStore = useModalsStore();
-
-const openTaskForm = () => {
-  modalsStore.openModal('TaskForm', null);
-};
 </script>
 
 <template>
@@ -17,10 +13,18 @@ const openTaskForm = () => {
       <h1 class="board__title">{{ boardStore.getBoard.title }}</h1>
     </div>
     <div class="header__buttons">
-      <ButtonComponent btnClass="primary" @click="openTaskForm" class="buttons__add-task">
+      <ButtonComponent
+        btnClass="primary"
+        @click="modalsStore.openModal('TaskForm', null)"
+        class="buttons__add-task"
+      >
         + add task
       </ButtonComponent>
-      <ButtonComponent btnClass="secondary" class="buttons__edit-board">
+      <ButtonComponent
+        btnClass="secondary"
+        @click="modalsStore.openModal('BoardForm', boardStore.getBoard)"
+        class="buttons__edit-board"
+      >
         edit board
       </ButtonComponent>
     </div>

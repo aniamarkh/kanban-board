@@ -97,14 +97,14 @@ const onFormSubmit = () => {
         inputName="Task Description"
         placeholder="Enter description for a task"
       />
-      <div class="task-view__subtasks">
+      <div class="task-form__subtasks">
         <h4>Subtasks</h4>
         <TextInput
           v-for="(subtask, index) in formState.task.subtasks"
           :key="subtask.id"
           v-model="formState.task.subtasks[index].title"
           placeholder="subtask"
-          :isRequired="false"
+          :is-required="false"
         />
         <ButtonComponent @click.prevent="addSubtaskInput" btnClass="secondary">
           + add subtask
@@ -149,7 +149,7 @@ const onFormSubmit = () => {
   gap: 15px;
 }
 
-.task-view__subtasks {
+.task-form__subtasks {
   @include flex-column;
   gap: 10px;
 }

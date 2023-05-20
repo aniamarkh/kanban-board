@@ -33,7 +33,7 @@ const modifyDragItem = (dataTransfer: DataTransfer) => {
   @include flex-column;
   align-items: flex-start;
   gap: 10px;
-  width: 290px;
+  min-width: 290px;
   padding-bottom: 100px;
 }
 
@@ -43,7 +43,7 @@ const modifyDragItem = (dataTransfer: DataTransfer) => {
 }
 
 .sortable-ghost {
-  opacity: 0.8;
+  opacity: 0.4;
   border: 2px solid $dark-grey;
 }
 </style>
