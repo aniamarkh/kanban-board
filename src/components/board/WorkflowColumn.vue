@@ -16,6 +16,8 @@ const modifyDragItem = (dataTransfer: DataTransfer) => {
     item-key="id"
     group="task-cards"
     :setData="modifyDragItem"
+    delay-on-touch-only="true"
+    delay="100"
     class="board__column"
   >
     <template #header>

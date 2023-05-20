@@ -62,6 +62,7 @@ const inputClass = computed(() => {
   background-color: $grey;
   border: none;
   border-radius: 10px;
+  font-size: 16px;
 }
 
 .text-input__input--error {

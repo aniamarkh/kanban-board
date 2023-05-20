@@ -46,5 +46,6 @@ const onInput = (event: Event) => {
   background-color: $grey;
   border: none;
   border-radius: 10px;
+  font-size: 16px;
 }
 </style>
