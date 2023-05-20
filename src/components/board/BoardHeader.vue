@@ -64,19 +64,17 @@ const modalsStore = useModalsStore();
 
 @media (max-width: 700px) {
   .board__title {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .header {
-    padding: 15px 10px;
+    padding: 15px 15px;
+    @include flex-column;
+    align-items: flex-start;
+    gap: 5px;
 
     &__buttons {
       gap: 5px;
-
-      .button__wrapper {
-        font-size: 12px;
-        width: 90px;
-      }
     }
   }
 }
