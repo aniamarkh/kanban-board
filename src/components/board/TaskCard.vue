@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { Task } from '@/types/types';
+import type { ModalData, Task } from '@/types/types';
 import { useModalsStore } from '@/stores/modalsStore';
 
 const props = defineProps<{ task: Task }>();
 const modalsStore = useModalsStore();
 
 const openTask = () => {
-  modalsStore.openModal('TaskView', props.task);
+  modalsStore.openModal('TaskView', props.task as ModalData);
 };
 
 const subtasksInfo = computed(() => {

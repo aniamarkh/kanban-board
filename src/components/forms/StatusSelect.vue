@@ -49,7 +49,7 @@ const onStatusChange = (event: Event) => {
   border: none;
   @include shadow;
   appearance: none;
-  background-image: url('src/assets/expand.svg');
+  background-image: url('@/assets/expand.svg');
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 25px;

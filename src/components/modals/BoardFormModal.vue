@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import { v4 as uuid } from 'uuid';
-import type { Board } from '@/types/types';
+import type { Board, ModalData } from '@/types/types';
 import { useBoardStore } from '@/stores/boardStore';
 import ButtonComponent from '../ButtonComponent.vue';
 import TextInput from '../forms/TextInput.vue';
 
 const boardStore = useBoardStore();
-const props = defineProps<{ data: Board }>();
+const props = defineProps<{ data: ModalData }>();
 const emit = defineEmits(['close']);
 
 const formState: { board: Board; isTitleError: boolean } = reactive({

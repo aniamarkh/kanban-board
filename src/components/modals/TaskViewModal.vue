@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useBoardStore } from '@/stores/boardStore';
-import type { Task } from '@/types/types';
+import type { ModalData } from '@/types/types';
 import ButtonComponent from '../ButtonComponent.vue';
-import SubtaskCheckbox from './SubtaskCheckbox.vue';
+import SubtaskCheckbox from '../SubtaskCheckbox.vue';
 import StatusSelect from '../forms/StatusSelect.vue';
-import DropdownMenu from './DropdownMenu.vue';
+import DropdownMenu from '../DropdownMenu.vue';
 
 const boardStore = useBoardStore();
-const props = defineProps<{ data: Task }>();
+const props = defineProps<{ data: ModalData }>();
 
 const subtasksInfo = computed(() => {
   const done = props.data.subtasks.filter((subtask) => subtask.done === true).length;

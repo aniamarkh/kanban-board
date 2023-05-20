@@ -22,6 +22,8 @@ export interface Board {
   columns: Column[];
 }
 
+export interface ModalData extends Board, Task {}
+
 export interface FormState {
   task: Task;
   statusColumnId: string;

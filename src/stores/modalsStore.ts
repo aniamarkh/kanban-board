@@ -4,13 +4,13 @@ import TaskForm from '@/components/modals/TaskFormModal.vue';
 import TaskView from '@/components/modals/TaskViewModal.vue';
 import BoardForm from '@/components/modals/BoardFormModal.vue';
 import DeleteNode from '@/components/modals/DeleteNodeModal.vue';
-import type { Board, Task } from '@/types/types';
+import type { ModalData } from '@/types/types';
 
 type ModalComponent = typeof TaskForm | typeof TaskView | typeof BoardForm | typeof DeleteNode;
 
 export interface ModalsState {
   activeModalComponent: ModalComponent | null;
-  modalData: Board | Task | null;
+  modalData: ModalData | null;
   modalComponentsMap: Record<string, ModalComponent>;
 }
 
@@ -30,13 +30,13 @@ export const useModalsStore = defineStore('modals', {
     getModalsStore(): ModalComponent | null {
       return this.activeModalComponent;
     },
-    getModalData(): Board | Task | null {
+    getModalData(): ModalData | null {
       return this.modalData;
     },
   },
 
   actions: {
-    openModal(modalName: keyof ModalsState['modalComponentsMap'], data: Task | Board | null) {
+    openModal(modalName: keyof ModalsState['modalComponentsMap'], data: ModalData | null) {
       this.activeModalComponent = this.modalComponentsMap[modalName];
       this.modalData = data;
     },

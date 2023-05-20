@@ -2,9 +2,9 @@
 import { useModalsStore } from '@/stores/modalsStore';
 import { useBoardStore } from '@/stores/boardStore';
 import ButtonComponent from '../ButtonComponent.vue';
-import type { Task } from '@/types/types';
+import type { ModalData } from '@/types/types';
 
-const props = defineProps<{ data: Task }>();
+const props = defineProps<{ data: ModalData }>();
 
 const modalsStore = useModalsStore();
 const boardStore = useBoardStore();

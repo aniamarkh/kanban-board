@@ -2,6 +2,7 @@
 import { useBoardStore } from '@/stores/boardStore';
 import { useModalsStore } from '@/stores/modalsStore';
 import ButtonComponent from '@/components/ButtonComponent.vue';
+import type { ModalData } from '@/types/types';
 
 const boardStore = useBoardStore();
 const modalsStore = useModalsStore();
@@ -22,7 +23,7 @@ const modalsStore = useModalsStore();
       </ButtonComponent>
       <ButtonComponent
         btnClass="secondary"
-        @click="modalsStore.openModal('BoardForm', boardStore.getBoard)"
+        @click="modalsStore.openModal('BoardForm', boardStore.getBoard as ModalData)"
         class="buttons__edit-board"
       >
         edit board

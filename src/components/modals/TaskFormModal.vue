@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, computed } from 'vue';
 import { v4 as uuid } from 'uuid';
-import type { FormState, Task, Column } from '@/types/types';
+import type { FormState, Column, ModalData } from '@/types/types';
 import { useBoardStore } from '@/stores/boardStore';
 import ButtonComponent from '../ButtonComponent.vue';
 import StatusSelect from '../forms/StatusSelect.vue';
@@ -11,7 +11,7 @@ import TextareaInput from '../forms/TextareaInput.vue';
 const boardStore = useBoardStore();
 const props = defineProps({
   data: {
-    type: Object as () => Task | null,
+    type: Object as () => ModalData | null,
     default: null,
   },
 });
