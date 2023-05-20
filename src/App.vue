@@ -5,11 +5,18 @@ import ModalOverlay from '@/components/ModalOverlay.vue';
 </script>
 
 <template>
-  <div>
+  <div class="app-wrapper">
     <BoardHeader />
-    <main>
-      <KanbanBoard />
-      <ModalOverlay />
-    </main>
+    <KanbanBoard />
+    <ModalOverlay />
   </div>
 </template>
+
+<style scoped lang="scss">
+@import '@/assets/_config.scss';
+
+.app-wrapper {
+  @include flex-column;
+  min-height: 100vh;
+}
+</style>

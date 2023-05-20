@@ -31,10 +31,11 @@ const openTaskForm = () => {
 @import '@/assets/_config.scss';
 .header {
   margin: 0 auto;
+  width: 100%;
   background-color: $bg-color;
   @include flex-row;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   padding: 15px 30px;
 
   &__board {
@@ -46,12 +47,31 @@ const openTaskForm = () => {
   &__buttons {
     @include flex-row;
     justify-content: flex-end;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     gap: 10px;
 
     .button__wrapper {
       width: 120px;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .board__title {
+    font-size: 20px;
+  }
+
+  .header {
+    padding: 15px 10px;
+
+    &__buttons {
+      gap: 5px;
+
+      .button__wrapper {
+        font-size: 12px;
+        width: 90px;
+      }
     }
   }
 }

@@ -5,6 +5,10 @@ html {
   color: $text-color;
 }
 
+#app {
+  min-height: 100vh;
+}
+
 .material-icons-outlined {
   font-family: 'Material Icons Outlined';
   font-weight: normal;

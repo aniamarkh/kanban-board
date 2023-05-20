@@ -19,7 +19,7 @@ const boardStore = useBoardStore();
 @import '@/assets/_config.scss';
 
 .board__wrapper {
-  max-width: 100%;
+  flex-grow: 1;
   overflow-x: auto;
   @include flex-row;
   gap: 20px;
