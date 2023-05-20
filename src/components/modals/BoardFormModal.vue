@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import { v4 as uuid } from 'uuid';
-import type { Board, Column } from '@/types/types';
+import type { Board } from '@/types/types';
 import { useBoardStore } from '@/stores/boardStore';
 import ButtonComponent from '../ButtonComponent.vue';
 import TextInput from '../forms/TextInput.vue';
@@ -23,10 +23,8 @@ const addColumnInput = () => {
   });
 };
 
-const deleteColumn = (columnToDelete: Column) => {
-  const columnIndex = formState.board.columns.findIndex(
-    (column) => (column.id = columnToDelete.id)
-  );
+const deleteColumn = (columnId: string) => {
+  const columnIndex = formState.board.columns.findIndex((column) => column.id === columnId);
   formState.board.columns.splice(columnIndex, 1);
 };
 
@@ -70,7 +68,7 @@ const onFormSubmit = () => {
             :is-required="false"
           />
           <span
-            @click="deleteColumn(column)"
+            @click="deleteColumn(column.id)"
             class="columns__delete-button material-icons-outlined"
           >
             close

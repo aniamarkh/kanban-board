@@ -45,6 +45,11 @@ const addSubtaskInput = () => {
   formState.task.subtasks.push(newSubtask());
 };
 
+const deleteSubtask = (subtaskId: string) => {
+  const subtaskIndex = formState.task.subtasks.findIndex((subtask) => subtask.id === subtaskId);
+  formState.task.subtasks.splice(subtaskIndex, 1);
+};
+
 const setStatusForTask = (targetColumnId: string) => {
   formState.statusColumnId = targetColumnId;
 };
@@ -99,13 +104,23 @@ const onFormSubmit = () => {
       />
       <div class="task-form__subtasks">
         <h4>Subtasks</h4>
-        <TextInput
+        <div
+          class="subtask__input"
           v-for="(subtask, index) in formState.task.subtasks"
           :key="subtask.id"
-          v-model="formState.task.subtasks[index].title"
-          placeholder="subtask"
-          :is-required="false"
-        />
+        >
+          <TextInput
+            v-model="formState.task.subtasks[index].title"
+            placeholder="Enter subtask description"
+            :is-required="false"
+          />
+          <span
+            @click="deleteSubtask(subtask.id)"
+            class="subtask__delete-button material-icons-outlined"
+          >
+            close
+          </span>
+        </div>
         <ButtonComponent @click.prevent="addSubtaskInput" btnClass="secondary">
           + add subtask
         </ButtonComponent>
@@ -152,6 +167,22 @@ const onFormSubmit = () => {
 .task-form__subtasks {
   @include flex-column;
   gap: 10px;
+
+  .subtask__input {
+    @include flex-row;
+    align-items: center;
+    gap: 10px;
+
+    .subtask__delete-button {
+      color: $dark-grey;
+      font-size: 18px;
+      cursor: pointer;
+
+      &:hover {
+        color: $text-color;
+      }
+    }
+  }
 }
 
 .task-form__status {
