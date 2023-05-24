@@ -15,6 +15,7 @@ export default defineConfig({
     coverage: {
       all: true,
       provider: 'c8',
+      include: ['src/components/**/*.vue', 'src/stores/**/*.ts'],
     },
   },
 });

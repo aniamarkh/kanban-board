@@ -1,13 +1,13 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { VueWrapper, mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import { setActivePinia, createPinia } from 'pinia';
 import mockBoard from '../mocks';
+import type { ModalData, BoardFormState } from '@/types/types';
 import { useBoardStore } from '@/stores/boardStore';
 import { useModalsStore } from '@/stores/modalsStore';
 import ModalOverlay from '@/components/ModalOverlay.vue';
 import BoardFormModal from '@/components/modals/BoardFormModal.vue';
-import type { ModalData, BoardFormState } from '@/types/types';
-import { nextTick } from 'vue';
 
 interface BoardFormInstance {
   formState: BoardFormState;

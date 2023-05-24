@@ -19,10 +19,15 @@ const deleteTask = () => {
   <div class="delete-modal__wrapper">
     <h3 class="delete-modal__title">Delete '{{ data.title }}' task?</h3>
     <p class="delete-modal__paragraph">This action cannot be reversed.</p>
-    <ButtonComponent @click="deleteTask" class="delete-modal__button" btnClass="warn">
+    <ButtonComponent @click="deleteTask" class="delete-modal__button-delete" btnClass="warn">
       Delete
     </ButtonComponent>
-    <ButtonComponent @click="modalsStore.closeModal" btnClass="secondary">Cancel</ButtonComponent>
+    <ButtonComponent
+      @click="modalsStore.closeModal"
+      class="delete-modal__button-cancel"
+      btnClass="secondary"
+      >Cancel</ButtonComponent
+    >
   </div>
 </template>
 
