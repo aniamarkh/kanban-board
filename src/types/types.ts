@@ -24,8 +24,13 @@ export interface Board {
 
 export interface ModalData extends Board, Task {}
 
-export interface FormState {
+export interface TaskFormState {
   task: Task;
   statusColumnId: string;
+  isTitleError: boolean;
+}
+
+export interface BoardFormState {
+  board: Board;
   isTitleError: boolean;
 }

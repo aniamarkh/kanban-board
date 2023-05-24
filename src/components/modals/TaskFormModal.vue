@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, computed } from 'vue';
 import { v4 as uuid } from 'uuid';
-import type { FormState, Column, ModalData } from '@/types/types';
+import type { TaskFormState, Column, ModalData } from '@/types/types';
 import { useBoardStore } from '@/stores/boardStore';
 import ButtonComponent from '../ButtonComponent.vue';
 import StatusSelect from '../forms/StatusSelect.vue';
@@ -35,7 +35,7 @@ const statusColumnId = computed(() => {
     : boardStore.getBoard.columns[0].id;
 });
 
-const formState: FormState = reactive({
+const formState: TaskFormState = reactive({
   task: props.data ? JSON.parse(JSON.stringify(props.data)) : newTask(),
   statusColumnId: statusColumnId.value,
   isTitleError: false,

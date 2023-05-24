@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import { v4 as uuid } from 'uuid';
-import type { Board, ModalData } from '@/types/types';
+import type { BoardFormState, ModalData } from '@/types/types';
 import { useBoardStore } from '@/stores/boardStore';
 import ButtonComponent from '../ButtonComponent.vue';
 import TextInput from '../forms/TextInput.vue';
@@ -10,7 +10,7 @@ const boardStore = useBoardStore();
 const props = defineProps<{ data: ModalData }>();
 const emit = defineEmits(['close']);
 
-const formState: { board: Board; isTitleError: boolean } = reactive({
+const formState: BoardFormState = reactive({
   board: JSON.parse(JSON.stringify(props.data)),
   isTitleError: false,
 });
@@ -58,6 +58,7 @@ const onFormSubmit = () => {
         @inputChange="formState.isTitleError = false"
         inputName="Board Name"
         placeholder="Enter board name"
+        class="form__title-input"
       />
       <div class="board-form__columns">
         <h4>Board Columns</h4>
@@ -74,7 +75,11 @@ const onFormSubmit = () => {
             close
           </span>
         </div>
-        <ButtonComponent @click.prevent="addColumnInput" btnClass="secondary">
+        <ButtonComponent
+          class="board-form__column-btn"
+          @click.prevent="addColumnInput"
+          btnClass="secondary"
+        >
           + add column
         </ButtonComponent>
       </div>
