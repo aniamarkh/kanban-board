@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { VueWrapper, mount } from '@vue/test-utils';
 import { setActivePinia, createPinia } from 'pinia';
-import mockBoard from '../mocks';
+import mockBoard from '@/assets/mocks';
 import BoardHeader from '@/components/board/BoardHeader.vue';
 import TaskFormModal from '@/components/modals/TaskFormModal.vue';
 import BoardFormModal from '@/components/modals/BoardFormModal.vue';

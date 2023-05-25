@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { VueWrapper, mount } from '@vue/test-utils';
 import { setActivePinia, createPinia } from 'pinia';
-import mockBoard from '../mocks';
+import mockBoard from '@/assets/mocks';
 import TaskCard from '@/components/board/TaskCard.vue';
 import { useBoardStore } from '@/stores/boardStore';
 import { useModalsStore } from '@/stores/modalsStore';

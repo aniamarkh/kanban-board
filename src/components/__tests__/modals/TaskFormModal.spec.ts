@@ -3,7 +3,7 @@ import { VueWrapper, mount } from '@vue/test-utils';
 import { setActivePinia, createPinia } from 'pinia';
 import { useBoardStore } from '@/stores/boardStore';
 import { useModalsStore } from '@/stores/modalsStore';
-import mockBoard from '../mocks';
+import mockBoard from '@/assets/mocks';
 import type { ModalData, Task, TaskFormState } from '@/types/types';
 import ModalOverlay from '@/components/ModalOverlay.vue';
 import StatusSelect from '@/components/forms/StatusSelect.vue';
