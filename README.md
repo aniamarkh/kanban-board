@@ -1,52 +1,39 @@
-# kanban-board
 
-This template should help get you started developing with Vue 3 in Vite.
+# Kanban Board
+## [Live Demo](https://kanban-aniamarkh.vercel.app/)
+![screen-capture](https://github.com/aniamarkh/kanban-board/assets/93217444/108d6058-fe0d-46de-b270-9bc49e25c298)
 
-## Recommended IDE Setup
+### Features
+- You can manage a single Kanban board.
+- The board's title and columns are editable.
+- You can add new tasks, as well as edit or delete existing ones.
+- Subtasks can be added to each task, and you can track their completion status.
+- The application supports drag and drop functionality for task cards.
+- User data is saved to the local store, so you won't lose your work between sessions.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### The application is built with
+- Vite
+- Vue 3
+- TypeScript
+- Pinia
+- SCSS
+- vue.draggable.next: A Vue 3 component used for draggable functionality.
+- uuid: A library to create unique identifiers.
+- Testing: Vitest and Vue Test Utils
 
-## Type Support for `.vue` Imports in TS
+### Getting Started
+To run this project locally, follow these steps:
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+1. Clone the repository:
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+`git clone https://github.com/aniamarkh/kanban-board.git`
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+2. Install the dependencies:
 
-## Customize configuration
+`npm install`
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+3. Run the application:
 
-## Project Setup
+`npm run dev`
 
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+This will start the local development server. You can then navigate to localhost:5173 in your browser to see the application.
