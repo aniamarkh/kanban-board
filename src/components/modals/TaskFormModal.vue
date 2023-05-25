@@ -91,6 +91,7 @@ const onFormSubmit = () => {
     </ButtonComponent>
     <form class="task-form__form" @submit.prevent="onFormSubmit" autocomplete="off">
       <TextInput
+        class="task-form__title-input"
         v-model="formState.task.title"
         :isError="formState.isTitleError"
         @inputChange="formState.isTitleError = false"
@@ -98,6 +99,7 @@ const onFormSubmit = () => {
         placeholder="Enter title for a task"
       />
       <TextareaInput
+        class="task-form__desc-input"
         v-model="formState.task.desc"
         inputName="Task Description"
         placeholder="Enter description for a task"
@@ -105,11 +107,12 @@ const onFormSubmit = () => {
       <div class="task-form__subtasks">
         <h4>Subtasks</h4>
         <div
-          class="subtask__input"
+          class="task-form__subtask"
           v-for="(subtask, index) in formState.task.subtasks"
           :key="subtask.id"
         >
           <TextInput
+            class="subtask__input"
             v-model="formState.task.subtasks[index].title"
             placeholder="Enter subtask description"
             :is-required="false"
@@ -121,12 +124,16 @@ const onFormSubmit = () => {
             close
           </span>
         </div>
-        <ButtonComponent @click.prevent="addSubtaskInput" btnClass="secondary">
+        <ButtonComponent
+          class="subtasks__add-btn"
+          @click.prevent="addSubtaskInput"
+          btnClass="secondary"
+        >
           + add subtask
         </ButtonComponent>
       </div>
       <div class="task-form__status">
-        <h4>Current Status</h4>
+        <h4>{{ data ? 'Current Status' : 'Status' }}</h4>
         <StatusSelect :task="data" @statusChange="setStatusForTask" />
       </div>
       <ButtonComponent btnClass="primary" class="task-form__confirm-btn" type="submit">
@@ -159,7 +166,7 @@ const onFormSubmit = () => {
   @include flex-column;
   gap: 10px;
 
-  .subtask__input {
+  .task-form__subtask {
     @include flex-row;
     align-items: center;
     gap: 10px;
